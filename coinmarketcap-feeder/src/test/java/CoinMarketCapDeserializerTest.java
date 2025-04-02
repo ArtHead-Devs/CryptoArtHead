@@ -1,12 +1,13 @@
-import com.arthead.controller.consume.CoinMarketCapDeserializer;
 import com.arthead.model.Coin;
+import com.arthead.controller.consume.CoinMarketCapDeserializer;
+import org.junit.jupiter.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 import java.util.List;
 
 public class CoinMarketCapDeserializerTest {
+
     private String json;
 
     @Before
@@ -60,9 +61,11 @@ public class CoinMarketCapDeserializerTest {
     }
 
     @Test
-    public void deserializerTest(){
+    public void deserializerTest() {
         CoinMarketCapDeserializer deserializer = new CoinMarketCapDeserializer();
         List<Coin> deserializedResponse = deserializer.deserialize(json);
+
+        Assertions.assertEquals(2, deserializedResponse.size());
 
         Coin bitcoin = deserializedResponse.getFirst();
         Assertions.assertEquals("Bitcoin", bitcoin.getName());
@@ -70,8 +73,27 @@ public class CoinMarketCapDeserializerTest {
         Assertions.assertEquals(21000000, bitcoin.getMaxSupply());
         Assertions.assertEquals(17199862, bitcoin.getCirculatingSupply());
         Assertions.assertTrue(bitcoin.getActive());
+
+        Assertions.assertEquals(852164659250.2758, bitcoin.getQuote().getCurrencies().get("USD").getMarketCap());
+        Assertions.assertEquals(6602.60701122, bitcoin.getQuote().getCurrencies().get("USD").getPrice());
+        Assertions.assertEquals(4314444687.5194, bitcoin.getQuote().getCurrencies().get("USD").getVolumeIn24h());
+
+        Assertions.assertEquals(800000000000.0, bitcoin.getQuote().getCurrencies().get("EUR").getMarketCap());
+        Assertions.assertEquals(6200.75, bitcoin.getQuote().getCurrencies().get("EUR").getPrice());
+        Assertions.assertEquals(4000000000.0, bitcoin.getQuote().getCurrencies().get("EUR").getVolumeIn24h());
+
+        Coin ethereum = deserializedResponse.get(1);
+        Assertions.assertEquals("Ethereum", ethereum.getName());
+        Assertions.assertEquals("ETH", ethereum.getSymbol());
+        Assertions.assertNull(ethereum.getMaxSupply());
+        Assertions.assertEquals(100000000, ethereum.getCirculatingSupply());
+
+        Assertions.assertEquals(50000000000.0, ethereum.getQuote().getCurrencies().get("USD").getMarketCap());
+        Assertions.assertEquals(400.50, ethereum.getQuote().getCurrencies().get("USD").getPrice());
+        Assertions.assertEquals(2000000000.0, ethereum.getQuote().getCurrencies().get("USD").getVolumeIn24h());
+
+        Assertions.assertEquals(48000000000.0, ethereum.getQuote().getCurrencies().get("EUR").getMarketCap());
+        Assertions.assertEquals(380.20, ethereum.getQuote().getCurrencies().get("EUR").getPrice());
+        Assertions.assertEquals(1900000000.0, ethereum.getQuote().getCurrencies().get("EUR").getVolumeIn24h());
     }
-
-
 }
-

@@ -9,8 +9,9 @@ public class Coin {
         private final Boolean isActive;
         private final Boolean isFiduciary;
         private final Integer ranking;
+        private final Quote quote;
 
-    public Coin(String name, String symbol, Integer maxSupply, Integer circulatingSupply, Integer totalSupply, Boolean isActive, Boolean isFiduciary, Integer ranking) {
+    public Coin(String name, String symbol, Integer maxSupply, Integer circulatingSupply, Integer totalSupply, Boolean isActive, Boolean isFiduciary, Integer ranking, Quote quote) {
         this.name = name;
         this.symbol = symbol;
         this.maxSupply = maxSupply;
@@ -19,6 +20,7 @@ public class Coin {
         this.isActive = isActive;
         this.isFiduciary = isFiduciary;
         this.ranking = ranking;
+        this.quote = quote;
     }
 
     public String getName() {
@@ -51,6 +53,10 @@ public class Coin {
 
     public Integer getRanking() {
         return ranking;
+    }
+
+    public Quote getQuote() {
+        return quote;
     }
 }
 
