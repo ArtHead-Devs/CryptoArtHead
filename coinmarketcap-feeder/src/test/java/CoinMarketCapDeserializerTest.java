@@ -1,8 +1,8 @@
 import com.arthead.model.Coin;
 import com.arthead.controller.consume.CoinMarketCapDeserializer;
 import org.junit.jupiter.api.Assertions;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class CoinMarketCapDeserializerTest {
 
     private String json;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         json = "{\n" +
                 "  \"data\": {\n" +

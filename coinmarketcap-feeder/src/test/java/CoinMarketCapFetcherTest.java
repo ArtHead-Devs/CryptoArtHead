@@ -2,7 +2,7 @@ import com.arthead.controller.consume.CoinMarketCapConnection;
 import com.arthead.controller.consume.CoinMarketCapFetcher;
 import org.jsoup.Connection;
 import org.junit.jupiter.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
