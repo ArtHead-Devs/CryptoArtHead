@@ -3,14 +3,14 @@ package com.arthead.model;
 public class Coin {
         private final String name;
         private final String symbol;
-        private final int maxSupply;
-        private final int circulatingSupply;
-        private final int totalSupply;
-        private final boolean isActive;
-        private final boolean isFiduciary;
-        private final int ranking;
+        private final Integer maxSupply;
+        private final Integer circulatingSupply;
+        private final Integer totalSupply;
+        private final Boolean isActive;
+        private final Boolean isFiduciary;
+        private final Integer ranking;
 
-    public Coin(String name, String symbol, int maxSupply, int circulatingSupply, int totalSupply, boolean isActive, boolean isFiduciary, int ranking) {
+    public Coin(String name, String symbol, Integer maxSupply, Integer circulatingSupply, Integer totalSupply, Boolean isActive, Boolean isFiduciary, Integer ranking) {
         this.name = name;
         this.symbol = symbol;
         this.maxSupply = maxSupply;
@@ -29,27 +29,27 @@ public class Coin {
         return symbol;
     }
 
-    public int getMaxSupply() {
+    public Integer getMaxSupply() {
         return maxSupply;
     }
 
-    public int getCirculatingSupply() {
+    public Integer getCirculatingSupply() {
         return circulatingSupply;
     }
 
-    public int getTotalSupply() {
+    public Integer getTotalSupply() {
         return totalSupply;
     }
 
-    public boolean getActive() {
+    public Boolean getActive() {
         return isActive;
     }
 
-    public boolean getFiduciary() {
+    public Boolean getFiduciary() {
         return isFiduciary;
     }
 
-    public int getRanking() {
+    public Integer getRanking() {
         return ranking;
     }
 }
