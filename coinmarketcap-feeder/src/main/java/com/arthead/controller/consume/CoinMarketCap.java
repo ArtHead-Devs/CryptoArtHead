@@ -13,6 +13,9 @@ public class CoinMarketCap {
                 .header("X-CMC_PRO_API_KEY", apiKey)
                 .ignoreContentType(true)
                 .method(Connection.Method.GET);
-        connection.execute();
+        Connection.Response response = connection.execute();
+
+        String json = response.body();
+        System.out.println(json);
     }
 }
