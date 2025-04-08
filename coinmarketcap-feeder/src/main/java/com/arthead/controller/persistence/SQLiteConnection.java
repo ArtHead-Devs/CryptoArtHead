@@ -14,4 +14,8 @@ public class SQLiteConnection {
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(dbUrl);
     }
+
+    public void initializeDatabase() {
+        TableCreator.createTables(this);
+    }
 }
