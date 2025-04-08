@@ -1,3 +1,5 @@
+package controller.consume;
+
 import com.arthead.controller.consume.CoinMarketCapConnection;
 import com.arthead.controller.consume.CoinMarketCapFetcher;
 import org.jsoup.Connection;

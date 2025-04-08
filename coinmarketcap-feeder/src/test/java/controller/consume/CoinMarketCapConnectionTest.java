@@ -1,3 +1,5 @@
+package controller.consume;
+
 import com.arthead.controller.consume.CoinMarketCapConnection;
 import org.jsoup.Connection;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,3 +1,5 @@
+package controller.consume;
+
 import com.arthead.model.Coin;
 import com.arthead.controller.consume.CoinMarketCapDeserializer;
 import org.junit.jupiter.api.Assertions;
