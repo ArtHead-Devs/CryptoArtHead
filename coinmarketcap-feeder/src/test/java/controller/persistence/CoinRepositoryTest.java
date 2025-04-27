@@ -31,7 +31,7 @@ public class CoinRepositoryTest {
     @Test
     public void testInsertCoin() throws SQLException {
         Coin coin = new Coin("Bitcoin", "BTC", 21000000, 19000000,20000000,
-                true, false, 1, Instant.now());
+                true, false, 1, Instant.now().toString());
 
         try (Connection dBconnection = connection.getConnection()) {
             coinRepository.insertCoin(coin);

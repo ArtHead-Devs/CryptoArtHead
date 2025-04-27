@@ -36,7 +36,7 @@ public class QuoteRepositoryTest {
     public void testInsertQuote() throws SQLException {
         Quote quote = new Quote("Bitcoin", "USD", 50000.0, 1000000.0, 5.0,
                 0.5, 1.0, -2.0, 10.0, 20.0,
-                30000000.0, 5000.0, Instant.now());
+                30000000.0, 5000.0, Instant.now().toString());
 
         quoteRepository.insertQuote(quote);
 

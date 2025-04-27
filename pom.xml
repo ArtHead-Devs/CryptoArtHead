@@ -44,6 +44,12 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.46.1.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-client</artifactId>
+            <version>6.1.6</version>
+        </dependency>
     </dependencies>
 
 </project>

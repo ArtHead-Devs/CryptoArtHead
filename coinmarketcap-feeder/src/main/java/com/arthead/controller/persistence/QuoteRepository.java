@@ -90,6 +90,6 @@ public class QuoteRepository {
         statement.setObject(11, quote.getPercentChange90d());
         statement.setObject(12, quote.getMarketCap());
         statement.setString(13, quote.getSs());
-        statement.setString(14, quote.getTs().toString());
+        statement.setString(14, quote.getTs());
     }
 }

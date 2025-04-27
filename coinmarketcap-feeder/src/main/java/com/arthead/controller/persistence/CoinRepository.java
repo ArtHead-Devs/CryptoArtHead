@@ -77,6 +77,6 @@ public class CoinRepository {
         statement.setObject(7, coin.getFiduciary());
         statement.setObject(8, coin.getRanking());
         statement.setString(9, coin.getSs());
-        statement.setString(10, coin.getTs().toString());
+        statement.setString(10, coin.getTs());
     }
 }
