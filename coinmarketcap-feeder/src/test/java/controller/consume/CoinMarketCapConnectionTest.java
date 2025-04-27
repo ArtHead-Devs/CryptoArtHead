@@ -2,9 +2,9 @@ package controller.consume;
 
 import com.arthead.controller.consume.CoinMarketCapConnection;
 import org.jsoup.Connection;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class CoinMarketCapConnectionTest {
     private CoinMarketCapConnection connection;
 
-    @BeforeEach
+    @Before
     public void setUp(){
         Map<String, String> queries = new HashMap<>();
         queries.put("slug", "bitcoin");
@@ -27,18 +27,14 @@ public class CoinMarketCapConnectionTest {
     @Test
     public void createConnectionTest() {
         Connection httpConnection = connection.createConnection();
-        Assertions.assertNotNull(httpConnection);
-        Assertions.assertEquals("https://sandbox-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest",
+        Assert.assertNotNull(httpConnection);
+        Assert.assertEquals("https://sandbox-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest",
                 httpConnection.request().url().toString());
     }
 
     @Test
-    public void testConnectionResponse() {
-        try {
-            Connection.Response response = connection.createConnection().execute();
-            Assertions.assertEquals(200, response.statusCode());
-        } catch (IOException e) {
-            Assertions.fail(e.getMessage());
-        }
+    public void testConnectionResponse() throws IOException {
+        Connection.Response response = connection.createConnection().execute();
+        Assert.assertEquals(200, response.statusCode());
     }
 }

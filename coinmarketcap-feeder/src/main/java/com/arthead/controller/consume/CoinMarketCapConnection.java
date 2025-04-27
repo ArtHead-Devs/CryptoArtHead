@@ -28,12 +28,10 @@ public class CoinMarketCapConnection {
     }
 
     public Connection createConnection(){
-        Connection connection = Jsoup.connect(getEndPoint())
+        return Jsoup.connect(getEndPoint())
                 .data(getQueries())
                 .header("X-CMC_PRO_API_KEY", getApiKey())
                 .ignoreContentType(true)
                 .method(Connection.Method.GET);
-
-        return connection;
     }
 }

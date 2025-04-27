@@ -4,23 +4,24 @@ import com.arthead.controller.persistence.CoinRepository;
 import com.arthead.controller.persistence.SQLiteConnection;
 import com.arthead.controller.persistence.TableCreator;
 import com.arthead.model.Coin;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
 import java.io.IOException;
 import java.sql.*;
-import org.junit.jupiter.api.Assertions;
+import org.junit.Assert;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
 
 public class CoinRepositoryTest {
     private SQLiteConnection connection;
     private CoinRepository coinRepository;
     private final String databaseName = "cointest.db";
 
-    @BeforeEach
-    public void setUp() throws SQLException {
+    @Before
+    public void setUp() {
         connection = new SQLiteConnection(databaseName);
         TableCreator.createTables(connection);
         coinRepository = new CoinRepository(connection);
@@ -29,25 +30,26 @@ public class CoinRepositoryTest {
 
     @Test
     public void testInsertCoin() throws SQLException {
-        Coin coin = new Coin("Bitcoin", "BTC", 21000000, 19000000, 20000000, true, false, 1, null);
+        Coin coin = new Coin("Bitcoin", "BTC", 21000000, 19000000,20000000,
+                true, false, 1, Instant.now());
 
-        try (Connection conn = connection.getConnection()) {
+        try (Connection dBconnection = connection.getConnection()) {
             coinRepository.insertCoin(coin);
 
-            try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM coins WHERE name = 'Bitcoin'")) {
+            try (PreparedStatement preparedStatement = dBconnection.prepareStatement("SELECT * FROM coins WHERE name = 'Bitcoin'")) {
 
-                try (ResultSet rs = pstmt.executeQuery()) {
-                    Assertions.assertTrue(rs.next());
-                    Assertions.assertEquals("BTC", rs.getString("symbol"));
-                    Assertions.assertEquals("Bitcoin", rs.getString("name"));
-                    Assertions.assertEquals(21000000, rs.getInt("max_supply"));
+                try (ResultSet result = preparedStatement.executeQuery()) {
+                    Assert.assertTrue(result.next());
+                    Assert.assertEquals("BTC", result.getString("symbol"));
+                    Assert.assertEquals("Bitcoin", result.getString("name"));
+                    Assert.assertEquals(21000000, result.getInt("max_supply"));
                 }
 
             }
         }
     }
 
-    @AfterEach
+    @After
     public void cleanUpDatabase() {
         Path dbPath = Paths.get(databaseName);
         try {
@@ -57,4 +59,3 @@ public class CoinRepositoryTest {
         }
     }
 }
-

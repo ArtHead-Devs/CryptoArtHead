@@ -9,10 +9,10 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TableCreatorTest {
     private final String databaseName = "cointest.db";
@@ -22,18 +22,18 @@ public class TableCreatorTest {
         SQLiteConnection connection = new SQLiteConnection(databaseName);
         TableCreator.createTables(connection);
 
-        try (Connection conn = connection.getConnection();
-             ResultSet rs = conn.getMetaData().getTables(null, null, "coins", null)) {
-            assertTrue(rs.next());
+        try (Connection dbConnection = connection.getConnection();
+             ResultSet rs = dbConnection.getMetaData().getTables(null, null, "coins", null)) {
+            Assert.assertTrue(rs.next());
         }
 
-        try (Connection conn = connection.getConnection();
-             ResultSet rs = conn.getMetaData().getTables(null, null, "quotes", null)) {
-            assertTrue(rs.next());
+        try (Connection dbConnection = connection.getConnection();
+             ResultSet rs = dbConnection.getMetaData().getTables(null, null, "quotes", null)) {
+            Assert.assertTrue(rs.next());
         }
     }
 
-    @AfterEach
+    @After
     public void cleanUpDatabase() {
         Path dbPath = Paths.get(databaseName);
         try {

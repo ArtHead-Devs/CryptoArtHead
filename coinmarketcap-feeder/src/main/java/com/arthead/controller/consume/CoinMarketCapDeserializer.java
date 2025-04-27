@@ -1,29 +1,29 @@
 package com.arthead.controller.consume;
 
 import com.arthead.model.Coin;
-import com.arthead.model.CurrencyInfo;
+import com.arthead.model.CoinMarketCapData;
 import com.arthead.model.Quote;
 import com.arthead.util.JsonHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Instant;
+import java.util.*;
 
 public class CoinMarketCapDeserializer {
     Gson gson = new Gson();
 
-
-    public List<Coin> deserialize(String json) {
+    public CoinMarketCapData deserialize(String json) {
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
-        JsonObject dataObject = jsonObject.getAsJsonObject("data");
-        return parseCoins(dataObject);
+        List<Coin> coins = parseCoins(jsonObject);
+        List<Quote> quotes = parseQuotes(jsonObject);
+        return new CoinMarketCapData(coins, quotes);
     }
 
-    private List<Coin> parseCoins(JsonObject dataObject) {
+    private List<Coin> parseCoins(JsonObject jsonObject) {
+        JsonObject dataObject = jsonObject.getAsJsonObject("data");
         List<Coin> coins = new ArrayList<>();
+
         for (Map.Entry<String, JsonElement> entryDataObject : dataObject.entrySet()) {
             JsonObject coinData = entryDataObject.getValue().getAsJsonObject();
             coins.add(parseCoin(coinData));
@@ -40,38 +40,45 @@ public class CoinMarketCapDeserializer {
         Boolean isActive = JsonHelper.getBoolean(JsonHelper.getInt(coinData, "is_active"));
         Boolean isFiduciary = JsonHelper.getBoolean(JsonHelper.getInt(coinData, "is_fiat"));
         Integer ranking = JsonHelper.getInt(coinData, "cmc_rank");
+        Instant ts = Instant.now();
 
-        JsonObject quoteObject = JsonHelper.getJsonObject(coinData, "quote");
-        Quote quote = parseQuote(quoteObject);
-
-        return new Coin(name, symbol, maxSupply, circulatingSupply, totalSupply, isActive, isFiduciary, ranking, quote);
+        return new Coin(name, symbol, maxSupply, circulatingSupply, totalSupply, isActive, isFiduciary,
+                ranking, ts);
     }
 
-    private Quote parseQuote(JsonObject quoteObject) {
-        Map<String, CurrencyInfo> currencies = new HashMap<>();
-        if (quoteObject != null) {
-            for (Map.Entry<String, JsonElement> entryQuoteObject : quoteObject.entrySet()) {
-                String currency = entryQuoteObject.getKey();
-                JsonObject currencyData = entryQuoteObject.getValue().getAsJsonObject();
-                currencies.put(currency, parseCurrencyInfo(currencyData));
+    private List<Quote> parseQuotes(JsonObject jsonObject) {
+        JsonObject dataObject = jsonObject.getAsJsonObject("data");
+        List<Quote> quotes = new ArrayList<>();
+
+        for (Map.Entry<String, JsonElement> coinEntry : dataObject.entrySet()) {
+            JsonObject coinData = coinEntry.getValue().getAsJsonObject();
+            String coinName = JsonHelper.getString(coinData, "name");
+            JsonObject quoteObject = coinData.getAsJsonObject("quote");
+
+            for (Map.Entry<String, JsonElement> currencyEntry : quoteObject.entrySet()) {
+                String currency = currencyEntry.getKey();
+                JsonObject quoteData = currencyEntry.getValue().getAsJsonObject();
+                quotes.add(parseQuote(coinName, currency, quoteData));
             }
         }
-        return new Quote(currencies);
+        return quotes;
     }
 
-    private CurrencyInfo parseCurrencyInfo(JsonObject currencyData) {
-        return new CurrencyInfo(
-                JsonHelper.getDouble(currencyData, "price"),
-                JsonHelper.getDouble(currencyData, "volume_24h"),
-                JsonHelper.getDouble(currencyData, "volume_change_24h"),
-                JsonHelper.getDouble(currencyData, "percent_change_1h"),
-                JsonHelper.getDouble(currencyData, "percent_change_24h"),
-                JsonHelper.getDouble(currencyData, "percent_change_7d"),
-                JsonHelper.getDouble(currencyData, "percent_change_30d"),
-                JsonHelper.getDouble(currencyData, "percent_change_60d"),
-                JsonHelper.getDouble(currencyData, "percent_change_90d"),
-                JsonHelper.getDouble(currencyData, "market_cap")
-        );
+    private Quote parseQuote(String coinName, String currency, JsonObject quoteObject) {
+        Double price = JsonHelper.getDouble(quoteObject, "price");
+        Double volumeIn24h = JsonHelper.getDouble(quoteObject, "volume_24h");
+        Double volumeChange24h = JsonHelper.getDouble(quoteObject, "volume_change_24h");
+        Double percentChange1h = JsonHelper.getDouble(quoteObject, "percent_change_1h");
+        Double percentChange24h = JsonHelper.getDouble(quoteObject, "percent_change_24h");
+        Double percentChange7d = JsonHelper.getDouble(quoteObject, "percent_change_7d");
+        Double percentChange30d = JsonHelper.getDouble(quoteObject, "percent_change_30d");
+        Double percentChange60d = JsonHelper.getDouble(quoteObject, "percent_change_60d");
+        Double percentChange90d = JsonHelper.getDouble(quoteObject, "percent_change_90d");
+        Double marketCap = JsonHelper.getDouble(quoteObject, "market_cap");
+        Instant ts = Instant.now();
+
+        return new Quote(coinName, currency, price, volumeIn24h, volumeChange24h, percentChange1h, percentChange24h,
+                percentChange7d, percentChange30d, percentChange60d, percentChange90d, marketCap, ts);
     }
 }
 

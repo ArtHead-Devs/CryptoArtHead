@@ -21,12 +21,6 @@ public class JsonHelper {
                 : null;
     }
 
-    public static JsonObject getJsonObject(JsonObject obj, String key) {
-        return obj.has(key) && !obj.get(key).isJsonNull()
-                ? obj.getAsJsonObject(key)
-                : null;
-    }
-
     public static Boolean getBoolean(Integer value) {
         return value != null ? value == 1 : null;
     }

@@ -2,22 +2,22 @@ package com.arthead.controller.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class TableCreator {
-    public static void createTables(SQLiteConnection connection) {
+    public static void createTables(SQLiteConnection connection){
         String createCoinsTable = """
                 CREATE TABLE IF NOT EXISTS coins (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     symbol TEXT NOT NULL,
-                    name TEXT NOT NULL UNIQUE,
+                    name TEXT NOT NULL,
                     max_supply INTEGER,
                     circulating_supply INTEGER,
                     total_supply INTEGER,
                     is_active BOOLEAN,
                     is_fiduciary BOOLEAN,
                     ranking INTEGER,
-                    processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    ss TEXT NOT NULL,
+                    processed_at TEXT
                 );
                 """;
 
@@ -36,18 +36,21 @@ public class TableCreator {
                     percent_change_60d REAL,
                     percent_change_90d REAL,
                     market_cap REAL,
-                    processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    ss TEXT NOT NULL,
+                    processed_at TEXT,
                     FOREIGN KEY (coin_name) REFERENCES coins (name)
                 );
                 """;
 
-        try (Connection conn = connection.getConnection();
-             PreparedStatement stmt1 = conn.prepareStatement(createCoinsTable);
-             PreparedStatement stmt2 = conn.prepareStatement(createQuotesTable)) {
-            stmt1.execute();
-            stmt2.execute();
-        } catch (SQLException e) {
-            System.err.println("Error creando tablas: " + e.getMessage());
+        try (Connection dbConnection = connection.getConnection();
+             PreparedStatement createCoinsStatement = dbConnection.prepareStatement(createCoinsTable);
+             PreparedStatement createQuotesStatement = dbConnection.prepareStatement(createQuotesTable)) {
+
+            createCoinsStatement.execute();
+            createQuotesStatement.execute();
+
+        } catch (Exception e) {
+            System.err.println("Error creando las tablas de la base de datos. " + e);
         }
     }
 }

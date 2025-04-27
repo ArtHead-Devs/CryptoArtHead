@@ -3,28 +3,33 @@ package controller.consume;
 import com.arthead.controller.consume.CoinMarketCapConnection;
 import com.arthead.controller.consume.CoinMarketCapFetcher;
 import org.jsoup.Connection;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CoinMarketCapFetcherTest {
+    private CoinMarketCapConnection connection;
 
-    @Test
-    public void fetcherTest() throws IOException {
+    @Before
+    public void setUp(){
         Map<String, String> queries = new HashMap<>();
         queries.put("slug", "bitcoin");
         queries.put("convert", "USD");
 
-        CoinMarketCapConnection coinMarketCapConnection = new CoinMarketCapConnection("b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c",
+        connection = new CoinMarketCapConnection("b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c",
                 "https://sandbox-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest",
                 queries);
+    }
 
-        Connection httpConnection = coinMarketCapConnection.createConnection();
+    @Test
+    public void fetcherTest() throws IOException {
+        Connection httpConnection = connection.createConnection();
         CoinMarketCapFetcher responseFetcher = new CoinMarketCapFetcher();
-        Assertions.assertTrue(responseFetcher.fetcher(httpConnection).contains("bitcoin"));
-        Assertions.assertTrue(responseFetcher.fetcher(httpConnection).contains("USD"));
+        Assert.assertTrue(responseFetcher.fetcher(httpConnection).contains("bitcoin"));
+        Assert.assertTrue(responseFetcher.fetcher(httpConnection).contains("USD"));
     }
 }

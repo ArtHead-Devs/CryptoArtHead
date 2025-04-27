@@ -1,14 +1,13 @@
 package com.arthead;
 
+import com.arthead.controller.consume.CoinMarketCapProvider;
 import com.arthead.controller.Controller;
 import com.arthead.controller.consume.*;
 import com.arthead.controller.persistence.SQLiteStore;
+import com.arthead.controller.consume.CoinProvider;
 
-import java.util.concurrent.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +17,7 @@ public class Main {
         }
 
         Map<String, String> queries = new HashMap<>();
-        queries.put("slug", "bitcoin,ethereum");
+        queries.put("slug", "bitcoin,dogecoin");
         queries.put("convert", "USD");
 
         CoinMarketCapConnection connection = new CoinMarketCapConnection(
@@ -36,8 +35,6 @@ public class Main {
         SQLiteStore store = new SQLiteStore(args[1]);
         Controller controller = new Controller(provider, store);
 
-        DateTimeFormatter formatHora = DateTimeFormatter.ofPattern("HH:mm:ss");
-
         System.out.println("=== Sistema de Actualización Cripto ===");
         System.out.println("Monedas monitorizadas:");
         String[] slugs = queries.get("slug").split(",");
@@ -47,14 +44,6 @@ public class Main {
         System.out.println("Base de datos: " + args[1]);
         System.out.println("Intervalo actualizaciones: 5 minutos");
 
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
-
-        Runnable task = () -> {
-            System.out.println("\n[" + LocalTime.now().format(formatHora) + "] Iniciando ciclo de actualización");
-            controller.execute();
-            System.out.println("Próxima actualización en 5 minutos");
-        };
-
-        scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.MINUTES);
+        controller.execute();
     }
 }

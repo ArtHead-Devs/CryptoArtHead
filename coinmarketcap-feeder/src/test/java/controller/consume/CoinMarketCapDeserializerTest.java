@@ -2,9 +2,11 @@ package controller.consume;
 
 import com.arthead.model.Coin;
 import com.arthead.controller.consume.CoinMarketCapDeserializer;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.arthead.model.CoinMarketCapData;
+import com.arthead.model.Quote;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class CoinMarketCapDeserializerTest {
 
     private String json;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         json = "{\n" +
                 "  \"data\": {\n" +
@@ -65,37 +67,54 @@ public class CoinMarketCapDeserializerTest {
     @Test
     public void deserializerTest() {
         CoinMarketCapDeserializer deserializer = new CoinMarketCapDeserializer();
-        List<Coin> deserializedResponse = deserializer.deserialize(json);
+        CoinMarketCapData data = deserializer.deserialize(json);
 
-        Assertions.assertEquals(2, deserializedResponse.size());
+        List<Coin> coins = data.getCoins();
+        Assert.assertEquals(2, coins.size());
 
-        Coin bitcoin = deserializedResponse.getFirst();
-        Assertions.assertEquals("Bitcoin", bitcoin.getName());
-        Assertions.assertEquals("BTC", bitcoin.getSymbol());
-        Assertions.assertEquals(21000000, bitcoin.getMaxSupply());
-        Assertions.assertEquals(17199862, bitcoin.getCirculatingSupply());
-        Assertions.assertTrue(bitcoin.getActive());
+        Coin bitcoin = coins.getFirst();
+        Assert.assertEquals("Bitcoin", bitcoin.getName());
+        Assert.assertEquals("BTC", bitcoin.getSymbol());
+        Assert.assertEquals(Integer.valueOf(21000000), bitcoin.getMaxSupply());
+        Assert.assertEquals(Integer.valueOf(17199862), bitcoin.getCirculatingSupply());
+        Assert.assertTrue(bitcoin.getActive());
 
-        Assertions.assertEquals(852164659250.2758, bitcoin.getQuote().getCurrencies().get("USD").getMarketCap());
-        Assertions.assertEquals(6602.60701122, bitcoin.getQuote().getCurrencies().get("USD").getPrice());
-        Assertions.assertEquals(4314444687.5194, bitcoin.getQuote().getCurrencies().get("USD").getVolumeIn24h());
+        Coin ethereum = coins.get(1);
+        Assert.assertEquals("Ethereum", ethereum.getName());
+        Assert.assertEquals("ETH", ethereum.getSymbol());
+        Assert.assertNull(ethereum.getMaxSupply());
+        Assert.assertEquals(Integer.valueOf(100000000), ethereum.getCirculatingSupply());
 
-        Assertions.assertEquals(800000000000.0, bitcoin.getQuote().getCurrencies().get("EUR").getMarketCap());
-        Assertions.assertEquals(6200.75, bitcoin.getQuote().getCurrencies().get("EUR").getPrice());
-        Assertions.assertEquals(4000000000.0, bitcoin.getQuote().getCurrencies().get("EUR").getVolumeIn24h());
+        List<Quote> quotes = data.getQuotes();
+        Assert.assertEquals(4, quotes.size());
 
-        Coin ethereum = deserializedResponse.get(1);
-        Assertions.assertEquals("Ethereum", ethereum.getName());
-        Assertions.assertEquals("ETH", ethereum.getSymbol());
-        Assertions.assertNull(ethereum.getMaxSupply());
-        Assertions.assertEquals(100000000, ethereum.getCirculatingSupply());
+        Quote bitcoinUsd = quotes.getFirst();
+        Assert.assertEquals("Bitcoin", bitcoinUsd.getCoin());
+        Assert.assertEquals("USD", bitcoinUsd.getCurrency());
+        Assert.assertEquals(852164659250.2758, bitcoinUsd.getMarketCap(), 0.001);
+        Assert.assertEquals(6602.60701122, bitcoinUsd.getPrice(), 0.001);
+        Assert.assertEquals(4314444687.5194, bitcoinUsd.getVolumeIn24h(), 0.001);
 
-        Assertions.assertEquals(50000000000.0, ethereum.getQuote().getCurrencies().get("USD").getMarketCap());
-        Assertions.assertEquals(400.50, ethereum.getQuote().getCurrencies().get("USD").getPrice());
-        Assertions.assertEquals(2000000000.0, ethereum.getQuote().getCurrencies().get("USD").getVolumeIn24h());
+        Quote bitcoinEur = quotes.get(1);
+        Assert.assertEquals("Bitcoin", bitcoinEur.getCoin());
+        Assert.assertEquals("EUR", bitcoinEur.getCurrency());
+        Assert.assertEquals(800000000000.0, bitcoinEur.getMarketCap(), 0.001);
+        Assert.assertEquals(6200.75, bitcoinEur.getPrice(), 0.001);
+        Assert.assertEquals(4000000000.0, bitcoinEur.getVolumeIn24h(), 0.001);
 
-        Assertions.assertEquals(48000000000.0, ethereum.getQuote().getCurrencies().get("EUR").getMarketCap());
-        Assertions.assertEquals(380.20, ethereum.getQuote().getCurrencies().get("EUR").getPrice());
-        Assertions.assertEquals(1900000000.0, ethereum.getQuote().getCurrencies().get("EUR").getVolumeIn24h());
+        Quote ethereumUsd = quotes.get(2);
+        Assert.assertEquals("Ethereum", ethereumUsd.getCoin());
+        Assert.assertEquals("USD", ethereumUsd.getCurrency());
+        Assert.assertEquals(50000000000.0, ethereumUsd.getMarketCap(), 0.001);
+        Assert.assertEquals(400.50, ethereumUsd.getPrice(), 0.001);
+        Assert.assertEquals(2000000000.0, ethereumUsd.getVolumeIn24h(), 0.001);
+
+        Quote ethereumEur = quotes.get(3);
+        Assert.assertEquals("Ethereum", ethereumEur.getCoin());
+        Assert.assertEquals("EUR", ethereumEur.getCurrency());
+        Assert.assertEquals(48000000000.0, ethereumEur.getMarketCap(), 0.001);
+        Assert.assertEquals(380.20, ethereumEur.getPrice(), 0.001);
+        Assert.assertEquals(1900000000.0, ethereumEur.getVolumeIn24h(), 0.001);
     }
+
 }

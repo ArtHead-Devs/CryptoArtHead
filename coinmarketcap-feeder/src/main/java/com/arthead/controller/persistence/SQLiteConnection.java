@@ -11,8 +11,12 @@ public class SQLiteConnection {
         this.dbUrl = "jdbc:sqlite:" + dbPath;
     }
 
+    public String getDbUrl() {
+        return dbUrl;
+    }
+
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(dbUrl);
+        return DriverManager.getConnection(getDbUrl());
     }
 
     public void initializeDatabase() {

@@ -1,9 +1,9 @@
 package controller.persistence;
 
 import com.arthead.controller.persistence.SQLiteConnection;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+import org.junit.After;
+import org.junit.Test;
+import org.junit.Assert;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,17 +12,17 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SQLiteConnectionTest {
-    private static final String databaseName = "cointest.db";
+    private final String databaseName = "cointest.db";
 
     @Test
     public void testGetConnection() throws SQLException {
         SQLiteConnection connection = new SQLiteConnection(databaseName);
         try (Connection conn = connection.getConnection()){
-            Assertions.assertNotNull(conn);
+            Assert.assertNotNull(conn);
         }
     }
 
-    @AfterEach
+    @After
     public void cleanUpDatabase() {
         Path dbPath = Paths.get(databaseName);
         try {
