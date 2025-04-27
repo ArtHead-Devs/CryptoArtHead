@@ -1,4 +1,4 @@
-package com.arthead.controller;
+package com.arthead.controller.consume;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

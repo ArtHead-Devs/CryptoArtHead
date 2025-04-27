@@ -1,4 +1,4 @@
-package com.arthead.persistence;
+package com.arthead.controller.persistence;
 
 import com.arthead.model.Repository;
 

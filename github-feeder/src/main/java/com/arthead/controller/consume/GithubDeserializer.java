@@ -1,4 +1,4 @@
-package com.arthead.controller;
+package com.arthead.controller.consume;
 
 import com.arthead.model.Information;
 import com.arthead.model.Owner;

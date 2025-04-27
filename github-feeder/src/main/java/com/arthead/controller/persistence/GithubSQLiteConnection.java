@@ -1,4 +1,4 @@
-package com.arthead.persistence;
+package com.arthead.controller.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
