@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/coinmarketcap-feeder/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/coinmarketcap-feeder/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-store-builder/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/event-store-builder/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/github-feeder/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/github-feeder/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

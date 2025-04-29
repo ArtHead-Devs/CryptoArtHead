@@ -11,6 +11,7 @@
     <modules>
         <module>coinmarketcap-feeder</module>
         <module>github-feeder</module>
+        <module>event-store-builder</module>
     </modules>
 
     <properties>
