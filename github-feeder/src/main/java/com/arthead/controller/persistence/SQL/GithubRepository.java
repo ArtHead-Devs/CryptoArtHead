@@ -52,7 +52,7 @@ public class GithubRepository {
     private void insertNewRepository(Connection connection, Repository repository) throws SQLException {
         String insertRepoSQL = """
             INSERT INTO repositories
-            (name, owner, description, created_at, updated_at, pushed_at, ss, processed_at) 
+            (name, owner, description, created_at, updated_at, pushed_at, ss, processed_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?);
             """;
 

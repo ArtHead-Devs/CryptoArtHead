@@ -2,7 +2,6 @@ package controller.persistence;
 
 import com.arthead.controller.persistence.SQL.GithubRepository;
 import com.arthead.controller.persistence.SQL.SQLiteConnection;
-import com.arthead.model.Information;
 import com.arthead.model.Repository;
 import org.junit.After;
 import org.junit.Assert;
@@ -10,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,15 +37,6 @@ public class GithubRepositoryTest {
                 "2023-01-01T00:00:00Z",
                 "2023-01-02T00:00:00Z",
                 "2023-01-03T00:00:00Z",
-                timestamp
-        );
-
-        Information info = new Information(
-                "test-repo",
-                100,
-                50,
-                10,
-                5,
                 timestamp
         );
 

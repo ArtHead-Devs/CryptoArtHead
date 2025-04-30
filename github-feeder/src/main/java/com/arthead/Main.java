@@ -5,8 +5,8 @@ import com.arthead.controller.consume.GithubConnection;
 import com.arthead.controller.consume.GithubDeserializer;
 import com.arthead.controller.consume.GithubFetcher;
 import com.arthead.controller.consume.GithubProvider;
+import com.arthead.controller.persistence.ActiveMQ.ActiveMQStore;
 import com.arthead.controller.persistence.GithubRepositoryStore;
-import com.arthead.controller.persistence.SQL.SQLiteStore;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +39,7 @@ public class Main {
                 new GithubDeserializer()
         );
 
-        GithubRepositoryStore store = new SQLiteStore(args[1]);
+        GithubRepositoryStore store = new ActiveMQStore(args[1]);
 
         Controller controller = new Controller(provider, store, repositories);
         controller.execute();
