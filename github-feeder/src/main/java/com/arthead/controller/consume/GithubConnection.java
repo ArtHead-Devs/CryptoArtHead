@@ -3,39 +3,21 @@ package com.arthead.controller.consume;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
-import java.util.Map;
-
 public class GithubConnection {
     private final String apiKey;
-    private final String endPoint;
-    private final Map<String, String> queries;
+    private final String urlBase;
 
-    public GithubConnection(String apiKey, String endPoint, Map<String, String> queries) {
+    public GithubConnection(String apiKey, String urlBase) {
         this.apiKey = apiKey;
-        this.endPoint = endPoint;
-        this.queries = queries;
+        this.urlBase = urlBase;
     }
 
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public String getEndPoint() {
-        return endPoint;
-    }
-
-    public Map<String, String> getQueries() {
-        return queries;
-    }
-
-    public Connection createConnection() {
-        Connection connection = Jsoup.connect(getEndPoint())
-                .data(getQueries())
-                .header("Authorization", "Bearer " + getApiKey())
-                .header("Accept", "application/vnd.github.v3+json")
+    public Connection createConnection(String owner, String repo) {
+        String finalUrl = urlBase + owner + "/" + repo;
+        return Jsoup.connect(finalUrl)
+                .header("Authorization", "Bearer " + apiKey)
+                .header("Accept", "application/vnd.github+json")
                 .ignoreContentType(true)
                 .method(Connection.Method.GET);
-
-        return connection;
     }
 }

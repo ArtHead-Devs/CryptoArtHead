@@ -1,31 +1,48 @@
 package com.arthead.model;
 
 public class Information {
-    private int stars;
-    private int forks;
-    private int issues;
-    private int watchers;
+    private final String name;
+    private final int stars;
+    private final int forks;
+    private final int issuesAndPullRequest;
+    private final int watchers;
+    private final String ts;
+    private final String ss = "Github";
 
-    public Information(int forks, int open_issues_count, int stargazers_count, int subscribers_count) {
+    public Information(String name, int stars, int forks, int issuesAndPullRequest, int watchers, String ts) {
+        this.name = name;
+        this.stars = stars;
         this.forks = forks;
-        this.issues = open_issues_count;
-        this.stars = stargazers_count;
-        this.watchers = subscribers_count;
+        this.issuesAndPullRequest = issuesAndPullRequest;
+        this.watchers = watchers;
+        this.ts = ts;
     }
 
-    public int getForks() {
-        return forks;
-    }
-
-    public int getIssues() {
-        return issues;
+    public String getName() {
+        return name;
     }
 
     public int getStars() {
         return stars;
     }
 
+    public int getForks() {
+        return forks;
+    }
+
+    public int getIssuesAndPullRequest() {
+        return issuesAndPullRequest;
+    }
+
     public int getWatchers() {
         return watchers;
+    }
+
+    public String getTs() {
+        return ts;
+    }
+
+    public String getSs() {
+        return ss;
     }
 }

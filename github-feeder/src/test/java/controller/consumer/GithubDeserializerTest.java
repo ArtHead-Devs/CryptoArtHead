@@ -1,20 +1,16 @@
-package controller.consume;
+package controller.consumer;
 
 import com.arthead.controller.consume.GithubDeserializer;
+import com.arthead.model.GithubData;
 import com.arthead.model.Information;
-import com.arthead.model.Owner;
 import com.arthead.model.Repository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 public class GithubDeserializerTest {
 
     private String json;
-    private final SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
     @Before
     public void setUp() {
@@ -35,25 +31,29 @@ public class GithubDeserializerTest {
     }
 
     @Test
-    public void deserializeTest() throws ParseException {
+    public void deserializeTest() {
         GithubDeserializer deserializer = new GithubDeserializer();
-        Repository repo = deserializer.deserialize(json);
+        GithubData githubData = deserializer.deserialize(json);
 
+        Repository repo = githubData.getRepository();
         Assert.assertEquals("example-repo", repo.getName());
+        Assert.assertEquals("johndoe", repo.getOwner());
         Assert.assertEquals("This is a sample repository", repo.getDescription());
 
-        Assert.assertEquals(iso8601Format.parse("2021-07-01T10:15:30Z"), repo.getCreateDate());
-        Assert.assertEquals(iso8601Format.parse("2021-07-10T12:00:00Z"), repo.getUpdateDate());
-        Assert.assertEquals(iso8601Format.parse("2021-07-15T14:45:00Z"), repo.getPushDate());
+        Assert.assertEquals("2021-07-01T10:15:30Z", repo.getCreateDate());
+        Assert.assertEquals("2021-07-10T12:00:00Z", repo.getUpdateDate());
+        Assert.assertEquals("2021-07-15T14:45:00Z", repo.getPushDate());
 
-        Owner owner = repo.getOwner();
-        Assert.assertNotNull(owner);
-        Assert.assertEquals("johndoe", owner.getLogin());
-
-        Information info = repo.getInformation();
-        Assert.assertEquals(42, info.getForks());
-        Assert.assertEquals(5, info.getIssues());
+        Information info = githubData.getInformation();
+        Assert.assertEquals("example-repo", info.getName());
         Assert.assertEquals(150, info.getStars());
+        Assert.assertEquals(42, info.getForks());
+        Assert.assertEquals(5, info.getIssuesAndPullRequest());
         Assert.assertEquals(10, info.getWatchers());
+
+        Assert.assertEquals("Github", info.getSs());
+        Assert.assertNotNull(info.getTs());
+        Assert.assertNotNull(repo.getTs());
+        Assert.assertEquals("Github", repo.getSs());
     }
 }

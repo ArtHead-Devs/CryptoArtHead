@@ -1,7 +1,7 @@
 package controller.persistence;
 
-import com.arthead.controller.persistence.GithubSQLiteConnection;
-import com.arthead.controller.persistence.GithubTableCreator;
+import com.arthead.controller.persistence.SQL.SQLiteConnection;
+import com.arthead.controller.persistence.SQL.TableCreator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,24 +14,23 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GithubTableCreatorTest {
-    private final String databaseName = "tabletest.db";
+public class TableCreatorTest {
+    private final String databaseName = "repositorytest.db";
 
     @Test
     public void testCreateTables() throws SQLException {
-        GithubSQLiteConnection connection = new GithubSQLiteConnection(databaseName);
-        Connection conn = connection.getConnection();
-        GithubTableCreator.createTables(conn);
+        SQLiteConnection connection = new SQLiteConnection(databaseName);
+        TableCreator.createTables(connection);
 
-        try (ResultSet rs1 = conn.getMetaData().getTables(null, null, "Repositories", null)) {
+        try (Connection dbConnection = connection.getConnection();
+             ResultSet rs1 = dbConnection.getMetaData().getTables(null, null, "repositories", null)) {
             Assert.assertTrue(rs1.next());
         }
 
-        try (ResultSet rs2 = conn.getMetaData().getTables(null, null, "Information", null)) {
+        try (Connection dbConnection = connection.getConnection();
+             ResultSet rs2 = dbConnection.getMetaData().getTables(null, null, "information", null)) {
             Assert.assertTrue(rs2.next());
         }
-
-        conn.close();
     }
 
     @After

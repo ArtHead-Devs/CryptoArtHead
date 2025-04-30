@@ -1,9 +1,9 @@
 package com.arthead.controller.consume;
 
-import com.arthead.model.Repository;
+import com.arthead.model.GithubData;
 
-import java.util.List;
+import java.util.Map;
 
 public interface RepositoryProvider {
-    List<Repository> provide();
+    GithubData provide(Map<String, String> repoQuery);
 }
