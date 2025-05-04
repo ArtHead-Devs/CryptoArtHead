@@ -40,7 +40,6 @@ public class Main {
         );
 
         GithubRepositoryStore store = new ActiveMQStore(args[1]);
-
         Controller controller = new Controller(provider, store, repositories);
         controller.execute();
     }
