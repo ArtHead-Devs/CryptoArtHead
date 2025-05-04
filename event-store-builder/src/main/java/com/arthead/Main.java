@@ -3,9 +3,13 @@ package com.arthead;
 import com.arthead.controller.broker.MessageReceiver;
 import jakarta.jms.JMSException;
 
+import java.util.List;
+
+
 public class Main {
     public static void main(String[] args) throws JMSException {
-        MessageReceiver receiver = new MessageReceiver(args[0]);
+        List<String> topics = List.of("github.Information", "github.Repositories", "crypto.Coins", "crypto.Quotes");
+        MessageReceiver receiver = new MessageReceiver(topics,args[0]);
         receiver.start();
     }
 }

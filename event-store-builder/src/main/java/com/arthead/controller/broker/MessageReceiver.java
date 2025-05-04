@@ -5,11 +5,12 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import java.util.List;
 
 public class MessageReceiver {
-    private static final List<String> topics = List.of("crypto.Coins", "crypto.Quotes");
+    private final List<String> topics;
     private final String url;
     private final EventStore eventStore = new EventStore();
 
-    public MessageReceiver(String url) {
+    public MessageReceiver(List<String> topics, String url) {
+        this.topics = topics;
         this.url = url;
     }
 
