@@ -1,6 +1,6 @@
-package controller.persistence;
+package controller.persistence.SQL;
 
-import com.arthead.controller.persistence.SQLiteConnection;
+import com.arthead.controller.persistence.SQL.SQLiteConnection;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;

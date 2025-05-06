@@ -2,7 +2,8 @@ package com.arthead.controller.persistence;
 
 import com.arthead.model.Coin;
 import com.arthead.model.Quote;
+import java.util.List;
 
 public interface CoinStore {
-    void save(Coin coin, Quote quote);
+    void save(List<Coin> coins, List<Quote> quotes);
 }

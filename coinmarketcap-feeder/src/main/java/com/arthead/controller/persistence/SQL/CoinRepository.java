@@ -1,4 +1,4 @@
-package com.arthead.controller.persistence;
+package com.arthead.controller.persistence.SQL;
 
 import com.arthead.model.Coin;
 
@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 public class CoinRepository {
     private final SQLiteConnection dbManager;
 
@@ -13,17 +15,16 @@ public class CoinRepository {
         this.dbManager = dbManager;
     }
 
-    public SQLiteConnection getDbManager() {
-        return dbManager;
-    }
 
-    public void insertCoin(Coin coin) {
-        try (Connection connection = getDbManager().getConnection()) {
-            if (!coinExists(connection, coin)) {
-                insertNewCoin(connection, coin);
+    public void insertCoins(List<Coin> coins) {
+        for(Coin coin:coins){
+            try (Connection connection = dbManager.getConnection()) {
+                if (!coinExists(connection, coin)) {
+                    insertNewCoin(connection, coin);
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al procesar moneda. " + e);
             }
-        } catch (SQLException e) {
-            System.err.println("Error al procesar moneda. " + e);
         }
     }
 

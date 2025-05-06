@@ -26,59 +26,35 @@ public class Controller {
         this.formatHora = DateTimeFormatter.ofPattern("HH:mm:ss");
     }
 
-    public CoinProvider getProvider() {
-        return provider;
-    }
-
-    public CoinStore getStore() {
-        return store;
-    }
-
-    public ScheduledExecutorService getScheduler() {
-        return scheduler;
-    }
-
-    public DateTimeFormatter getFormatHora() {
-        return formatHora;
-    }
-
     public void execute() {
-        Runnable task = () -> {
-            processData();
-        };
-
-        getScheduler().scheduleAtFixedRate(task, 0, 5, TimeUnit.MINUTES);
+        Runnable task = this::processData;
+        scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.MINUTES);
         System.out.println("Controlador iniciado. Datos se actualizarán cada 5 minutos.");
     }
 
     private void processData() {
-        System.out.println("\n[" + LocalTime.now().format(getFormatHora()) + "] Iniciando ciclo de actualización");
+        System.out.println("\n[" + LocalTime.now().format(formatHora) + "] Iniciando ciclo de actualización");
 
-        CoinMarketCapData data = getProvider().provide();
+        CoinMarketCapData data = provider.provide();
 
         if (data == null || data.getCoins().isEmpty()) {
             System.out.println("No se recibieron datos de la API");
             return;
         }
 
-        System.out.println("Datos obtenidos (" + data.getCoins().size() + " monedas):");
-
         List<Coin> coins = data.getCoins();
         List<Quote> quotes = data.getQuotes();
 
+        store.save(coins, quotes);
+
+        System.out.println("Datos obtenidos (" + coins.size() + " monedas):");
         for (Coin coin : coins) {
             for (Quote quote : quotes) {
                 if (quote.getCoin().equals(coin.getName())) {
-                    try {
-                        getStore().save(coin, quote);
-                        System.out.println("- " + coin.getName() + " (" + quote.getCurrency() + ") | Actualizada");
-                    } catch (Exception e) {
-                        System.out.println("- Error actualizando " + coin.getName() + ": " + e.getMessage());
-                    }
+                    System.out.println("- " + coin.getName() + " (" + quote.getCurrency() + ") | Actualizada");
                 }
             }
         }
-
         System.out.println("Próxima actualización en 5 minutos");
     }
 }

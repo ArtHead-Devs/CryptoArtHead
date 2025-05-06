@@ -1,8 +1,8 @@
-package controller.persistence;
+package controller.persistence.SQL;
 
-import com.arthead.controller.persistence.QuoteRepository;
-import com.arthead.controller.persistence.SQLiteConnection;
-import com.arthead.controller.persistence.TableCreator;
+import com.arthead.controller.persistence.SQL.QuoteRepository;
+import com.arthead.controller.persistence.SQL.SQLiteConnection;
+import com.arthead.controller.persistence.SQL.TableCreator;
 import com.arthead.model.Quote;
 import org.junit.After;
 import org.junit.Before;
@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -33,12 +35,14 @@ public class QuoteRepositoryTest {
     }
 
     @Test
-    public void testInsertQuote() throws SQLException {
+    public void testInsertQuotes() throws SQLException {
+        List<Quote> quotes = new ArrayList<>();
         Quote quote = new Quote("Bitcoin", "USD", 50000.0, 1000000.0, 5.0,
                 0.5, 1.0, -2.0, 10.0, 20.0,
                 30000000.0, 5000.0, Instant.now().toString());
+        quotes.add(quote);
 
-        quoteRepository.insertQuote(quote);
+        quoteRepository.insertQuotes(quotes);
 
         try (Connection dBconnection = connection.getConnection();
              PreparedStatement preparedStatement = dBconnection.prepareStatement(

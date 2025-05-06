@@ -1,4 +1,4 @@
-package com.arthead.controller.persistence;
+package com.arthead.controller.persistence.SQL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

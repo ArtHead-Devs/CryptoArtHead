@@ -1,4 +1,4 @@
-package com.arthead.controller.persistence;
+package com.arthead.controller.persistence.SQL;
 
 import com.arthead.model.Quote;
 
@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class QuoteRepository {
     private final SQLiteConnection dbManager;
@@ -18,13 +19,15 @@ public class QuoteRepository {
         return dbManager;
     }
 
-    public void insertQuote(Quote quote) {
-        try (Connection connection = getDbManager().getConnection()) {
-            if (!quoteExists(connection, quote)) {
-                insertNewQuote(connection, quote);
+    public void insertQuotes(List<Quote> quotes) {
+        for(Quote quote: quotes){
+            try (Connection connection = getDbManager().getConnection()) {
+                if (!quoteExists(connection, quote)) {
+                    insertNewQuote(connection, quote);
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al procesar cotización. " + e);
             }
-        } catch (SQLException e) {
-            System.err.println("Error al procesar cotización. " + e);
         }
     }
 

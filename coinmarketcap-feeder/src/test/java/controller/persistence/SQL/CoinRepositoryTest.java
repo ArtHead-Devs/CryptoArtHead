@@ -1,8 +1,8 @@
-package controller.persistence;
+package controller.persistence.SQL;
 
-import com.arthead.controller.persistence.CoinRepository;
-import com.arthead.controller.persistence.SQLiteConnection;
-import com.arthead.controller.persistence.TableCreator;
+import com.arthead.controller.persistence.SQL.CoinRepository;
+import com.arthead.controller.persistence.SQL.SQLiteConnection;
+import com.arthead.controller.persistence.SQL.TableCreator;
 import com.arthead.model.Coin;
 import org.junit.Before;
 import org.junit.After;
@@ -14,6 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CoinRepositoryTest {
     private SQLiteConnection connection;
@@ -29,12 +31,14 @@ public class CoinRepositoryTest {
 
 
     @Test
-    public void testInsertCoin() throws SQLException {
+    public void testInsertCoins() throws SQLException {
+        List<Coin> coins = new ArrayList<>();
         Coin coin = new Coin("Bitcoin", "BTC", 21000000, 19000000,20000000,
                 true, false, 1, Instant.now().toString());
+        coins.add(coin);
 
         try (Connection dBconnection = connection.getConnection()) {
-            coinRepository.insertCoin(coin);
+            coinRepository.insertCoins(coins);
 
             try (PreparedStatement preparedStatement = dBconnection.prepareStatement("SELECT * FROM coins WHERE name = 'Bitcoin'")) {
 

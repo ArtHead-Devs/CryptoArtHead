@@ -1,7 +1,10 @@
-package com.arthead.controller.persistence;
+package com.arthead.controller.persistence.SQL;
 
+import com.arthead.controller.persistence.CoinStore;
 import com.arthead.model.Coin;
 import com.arthead.model.Quote;
+
+import java.util.List;
 
 public class SQLiteStore implements CoinStore {
     private final CoinRepository coinRepo;
@@ -15,9 +18,9 @@ public class SQLiteStore implements CoinStore {
     }
 
     @Override
-    public void save(Coin coin, Quote quote) {
-        coinRepo.insertCoin(coin);
-        quoteRepo.insertQuote(quote);
+    public void save(List<Coin> coins, List<Quote> quotes) {
+        coinRepo.insertCoins(coins);
+        quoteRepo.insertQuotes(quotes);
 
     }
 }

@@ -1,4 +1,4 @@
-package com.arthead.controller.broker;
+package com.arthead.controller.persistence.broker;
 
 import com.arthead.model.Quote;
 import com.google.gson.Gson;

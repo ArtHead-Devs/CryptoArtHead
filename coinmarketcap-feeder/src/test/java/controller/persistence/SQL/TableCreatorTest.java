@@ -1,7 +1,7 @@
-package controller.persistence;
+package controller.persistence.SQL;
 
-import com.arthead.controller.persistence.SQLiteConnection;
-import com.arthead.controller.persistence.TableCreator;
+import com.arthead.controller.persistence.SQL.SQLiteConnection;
+import com.arthead.controller.persistence.SQL.TableCreator;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

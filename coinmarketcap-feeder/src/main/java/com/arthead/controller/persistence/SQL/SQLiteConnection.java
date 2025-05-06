@@ -1,4 +1,4 @@
-package com.arthead.controller.persistence;
+package com.arthead.controller.persistence.SQL;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,12 +11,8 @@ public class SQLiteConnection {
         this.dbUrl = "jdbc:sqlite:" + dbPath;
     }
 
-    public String getDbUrl() {
-        return dbUrl;
-    }
-
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(getDbUrl());
+        return DriverManager.getConnection(dbUrl);
     }
 
     public void initializeDatabase() {

@@ -15,22 +15,10 @@ public class CoinMarketCapConnection {
         this.queries = queries;
     }
 
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public String getEndPoint() {
-        return endPoint;
-    }
-
-    public Map<String, String> getQueries() {
-        return queries;
-    }
-
     public Connection createConnection(){
-        return Jsoup.connect(getEndPoint())
-                .data(getQueries())
-                .header("X-CMC_PRO_API_KEY", getApiKey())
+        return Jsoup.connect(endPoint)
+                .data(queries)
+                .header("X-CMC_PRO_API_KEY", apiKey)
                 .ignoreContentType(true)
                 .method(Connection.Method.GET);
     }
