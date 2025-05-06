@@ -1,14 +1,14 @@
 package com.arthead.controller.consume;
 
 import org.jsoup.Connection;
-
+import org.jsoup.HttpStatusException;
 import java.io.IOException;
 
 public class GithubFetcher {
-    public String getResponseJson(Connection connection) throws IOException {
+    public String fetcher(Connection connection) throws IOException {
         Connection.Response response = connection.execute();
         if (response.statusCode() != 200) {
-            throw new RuntimeException("Error HTTP: " + response.statusCode() + " - " + response.statusMessage());
+            throw new HttpStatusException("Error HTTP. ", response.statusCode(), response.url().toString());
         }
         return response.body();
     }

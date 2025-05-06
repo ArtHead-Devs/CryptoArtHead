@@ -1,51 +1,54 @@
 package com.arthead.model;
 
-import java.util.Date;
-
 public class Repository {
-    private String name;
-    private Owner owner;
-    private String description;
-    private Date create_date;
-    private Date update_date;
-    private Date push_date;
-    private Information information;
+    private final String name;
+    private final String owner;
+    private final String description;
+    private final String createDate;
+    private final String updateDate;
+    private final String pushDate;
+    private final String ts;
+    private final String ss = "Github";
 
-    public Repository(String name, Owner owner, String description, Date create_date, Date update_date, Date push_date, Information information) {
-        this.create_date = create_date;
-        this.description = description;
+    public Repository(String name, String owner, String description, String createDate, String updateDate, String pushDate, String ts) {
         this.name = name;
         this.owner = owner;
-        this.push_date = push_date;
-        this.update_date = update_date;
-        this.information = information;
-    }
-
-    public Date getCreateDate() {
-        return create_date;
-    }
-
-    public String getDescription() {
-        return description;
+        this.description = description;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.pushDate = pushDate;
+        this.ts = ts;
     }
 
     public String getName() {
         return name;
     }
 
-    public Owner getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public Date getPushDate() {
-        return push_date;
+    public String getDescription() {
+        return description;
     }
 
-    public Date getUpdateDate() {
-        return update_date;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public Information getInformation() {
-        return information;
+    public String getUpdateDate() {
+        return updateDate;
+    }
+
+    public String getPushDate() {
+        return pushDate;
+    }
+
+    public String getTs() {
+        return ts;
+    }
+
+    public String getSs() {
+        return ss;
     }
 }

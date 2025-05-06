@@ -1,15 +1,12 @@
 package controller.persistence;
 
-import com.arthead.controller.persistence.GithubSQLiteConnection;
-import com.arthead.controller.persistence.InformationRepository;
+import com.arthead.controller.persistence.SQL.SQLiteConnection;
+import com.arthead.controller.persistence.SQL.InformationRepository;
 import com.arthead.model.Information;
-import com.arthead.model.Owner;
-import com.arthead.model.Repository;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,68 +14,49 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
 
 public class InformationRepositoryTest {
-
-    private GithubSQLiteConnection connection;
+    private SQLiteConnection connection;
     private InformationRepository informationRepository;
-    private final String databaseName = "infotest.db";
+    private final String databaseName = "repositorytest.db";
 
     @Before
     public void setUp() {
-        connection = new GithubSQLiteConnection(databaseName);
+        connection = new SQLiteConnection(databaseName);
         connection.initializeDatabase();
         informationRepository = new InformationRepository(connection);
     }
 
     @Test
     public void testInsertInformation() throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date createDate = sdf.parse("2023-01-01 10:00:00");
-        Date updateDate = sdf.parse("2023-02-01 10:00:00");
-        Date pushDate = sdf.parse("2023-03-01 10:00:00");
-
-        Repository repo = new Repository(
+        String timestamp = Instant.now().toString();
+        Information info = new Information(
                 "example-repo",
-                new Owner("johndoe"),
-                "repo de prueba",
-                createDate,
-                updateDate,
-                pushDate,
-                new Information(10, 5, 100, 20)
+                100,
+                50,
+                10,
+                5,
+                timestamp
         );
 
-        try (Connection conn = connection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("""
-                INSERT INTO Repositories (owner, name, description, created_at, updated_at, pushed_at, check_date)
-                VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-            """)) {
-            pstmt.setString(1, "johndoe");
-            pstmt.setString(2, "example-repo");
-            pstmt.setString(3, "repo de prueba");
-            pstmt.setString(4, sdf.format(createDate));
-            pstmt.setString(5, sdf.format(updateDate));
-            pstmt.setString(6, sdf.format(pushDate));
-            pstmt.executeUpdate();
-        }
 
-        informationRepository.insertInformation(repo);
+        informationRepository.insertInformation(info);
 
         try (Connection conn = connection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("""
-                SELECT * FROM Information WHERE owner = ? AND repo_name = ?
-            """)) {
-            pstmt.setString(1, "johndoe");
-            pstmt.setString(2, "example-repo");
+             PreparedStatement pstmt = conn.prepareStatement(
+                     "SELECT stars, forks, issues, watchers, ss, processed_at FROM information WHERE name = ?")) {
+
+            pstmt.setString(1, "example-repo");
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                Assert.assertTrue(rs.next());
+                Assert.assertTrue("Debe existir el registro", rs.next());
                 Assert.assertEquals(100, rs.getInt("stars"));
-                Assert.assertEquals(10, rs.getInt("forks"));
-                Assert.assertEquals(5, rs.getInt("issues"));
-                Assert.assertEquals(20, rs.getInt("watchers"));
+                Assert.assertEquals(50, rs.getInt("forks"));
+                Assert.assertEquals(10, rs.getInt("issues"));
+                Assert.assertEquals(5, rs.getInt("watchers"));
+                Assert.assertEquals("Github", rs.getString("ss"));
+                Assert.assertEquals(timestamp, rs.getString("processed_at"));
             }
         }
     }
@@ -89,7 +67,7 @@ public class InformationRepositoryTest {
         try {
             Files.deleteIfExists(dbPath);
         } catch (IOException e) {
-            throw new RuntimeException("Error eliminando la base de datos de prueba", e);
+            System.err.println("Error limpiando BD: " + e.getMessage());
         }
     }
 }

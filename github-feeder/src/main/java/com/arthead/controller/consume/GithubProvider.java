@@ -1,9 +1,9 @@
 package com.arthead.controller.consume;
 
-import com.arthead.model.Repository;
+import com.arthead.model.GithubData;
 import org.jsoup.Connection;
 
-import java.util.List;
+import java.util.Map;
 
 public class GithubProvider implements RepositoryProvider {
     private final GithubConnection connection;
@@ -17,19 +17,15 @@ public class GithubProvider implements RepositoryProvider {
     }
 
     @Override
-    public List<Repository> provide() {
+    public GithubData provide(Map<String, String> repoQuery) {
         try {
-            Connection apiConnection = connection.createConnection();
-
-            String json = fetcher.getResponseJson(apiConnection);
-
-            Repository singleRepo = deserializer.deserialize(json);
-
-            return List.of(singleRepo);
-
+            String owner = repoQuery.get("owner");
+            String repo = repoQuery.get("repo");
+            Connection connection = this.connection.createConnection(owner, repo);
+            String json = fetcher.fetcher(connection);
+            return deserializer.deserialize(json);
         } catch (Exception e) {
-            System.err.println("Error al obtener la información del repositorio: " + e.getMessage());
-            return List.of();
+            throw new RuntimeException("Error al obtener repositorio. ", e);
         }
     }
 }

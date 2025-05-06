@@ -40,7 +40,7 @@ public class CoinMarketCapDeserializer {
         Boolean isActive = JsonHelper.getBoolean(JsonHelper.getInt(coinData, "is_active"));
         Boolean isFiduciary = JsonHelper.getBoolean(JsonHelper.getInt(coinData, "is_fiat"));
         Integer ranking = JsonHelper.getInt(coinData, "cmc_rank");
-        Instant ts = Instant.now();
+        String ts = Instant.now().toString();
 
         return new Coin(name, symbol, maxSupply, circulatingSupply, totalSupply, isActive, isFiduciary,
                 ranking, ts);
@@ -75,7 +75,7 @@ public class CoinMarketCapDeserializer {
         Double percentChange60d = JsonHelper.getDouble(quoteObject, "percent_change_60d");
         Double percentChange90d = JsonHelper.getDouble(quoteObject, "percent_change_90d");
         Double marketCap = JsonHelper.getDouble(quoteObject, "market_cap");
-        Instant ts = Instant.now();
+        String ts = Instant.now().toString();
 
         return new Quote(coinName, currency, price, volumeIn24h, volumeChange24h, percentChange1h, percentChange24h,
                 percentChange7d, percentChange30d, percentChange60d, percentChange90d, marketCap, ts);

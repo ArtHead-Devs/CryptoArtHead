@@ -3,9 +3,9 @@ package com.arthead;
 import com.arthead.controller.consume.CoinMarketCapProvider;
 import com.arthead.controller.Controller;
 import com.arthead.controller.consume.*;
-import com.arthead.controller.persistence.SQLiteStore;
+import com.arthead.controller.persistence.CoinStore;
 import com.arthead.controller.consume.CoinProvider;
-
+import com.arthead.controller.persistence.broker.ActiveMQStore;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +17,7 @@ public class Main {
         }
 
         Map<String, String> queries = new HashMap<>();
-        queries.put("slug", "bitcoin,dogecoin");
+        queries.put("slug", "ethereum,xrp,tron,cardano,chainlink,avalanche,stellar,polkadot-new,internet-computer,bittensor");
         queries.put("convert", "USD");
 
         CoinMarketCapConnection connection = new CoinMarketCapConnection(
@@ -32,7 +32,7 @@ public class Main {
                 new CoinMarketCapDeserializer()
         );
 
-        SQLiteStore store = new SQLiteStore(args[1]);
+        CoinStore store = new ActiveMQStore(args[1]);
         Controller controller = new Controller(provider, store);
 
         System.out.println("=== Sistema de Actualización Cripto ===");

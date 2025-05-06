@@ -1,7 +1,5 @@
 package com.arthead.model;
 
-import java.time.Instant;
-
 public class Coin {
     private final String name;
     private final String symbol;
@@ -11,11 +9,10 @@ public class Coin {
     private final Boolean isActive;
     private final Boolean isFiduciary;
     private final Integer ranking;
-    private final Instant ts;
+    private final String ts;
     private final String ss = "CoinMarketCap";
 
-    public Coin(String name, String symbol, Integer maxSupply, Integer circulatingSupply, Integer totalSupply,
-                Boolean isActive, Boolean isFiduciary, Integer ranking, Instant ts) {
+    public Coin(String name, String symbol, Integer maxSupply, Integer circulatingSupply, Integer totalSupply, Boolean isActive, Boolean isFiduciary, Integer ranking, String ts) {
         this.name = name;
         this.symbol = symbol;
         this.maxSupply = maxSupply;
@@ -59,7 +56,7 @@ public class Coin {
         return ranking;
     }
 
-    public Instant getTs() {
+    public String getTs() {
         return ts;
     }
 

@@ -15,24 +15,12 @@ public class CoinMarketCapProvider implements CoinProvider {
         this.deserializer = deserializer;
     }
 
-    public CoinMarketCapConnection getConnection() {
-        return connection;
-    }
-
-    public CoinMarketCapFetcher getFetcher() {
-        return fetcher;
-    }
-
-    public CoinMarketCapDeserializer getDeserializer() {
-        return deserializer;
-    }
-
     @Override
     public CoinMarketCapData provide(){
         try {
-            Connection httpConnection = getConnection().createConnection();
-            String json = getFetcher().fetcher(httpConnection);
-            return getDeserializer().deserialize(json);
+            Connection httpConnection = connection.createConnection();
+            String json = fetcher.fetcher(httpConnection);
+            return deserializer.deserialize(json);
         } catch (Exception e) {
             throw new RuntimeException("Error al obtener las monedas. ", e);
         }
