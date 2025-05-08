@@ -1,11 +1,13 @@
 package com.arthead;
 
-import com.arthead.controller.consume.CoinMarketCapProvider;
-import com.arthead.controller.Controller;
-import com.arthead.controller.consume.*;
-import com.arthead.controller.persistence.CoinStore;
-import com.arthead.controller.consume.CoinProvider;
-import com.arthead.controller.persistence.broker.ActiveMQStore;
+import com.arthead.application.adapters.coinprovider.CoinMarketCapProvider;
+import com.arthead.application.adapters.coinprovider.CoinMarketCapConnection;
+import com.arthead.application.adapters.coinprovider.CoinMarketCapDeserializer;
+import com.arthead.application.adapters.coinprovider.CoinMarketCapFetcher;
+import com.arthead.application.usecases.collectandstore.Controller;
+import com.arthead.application.ports.CoinStore;
+import com.arthead.application.ports.CoinProvider;
+import com.arthead.application.adapters.store.ActiveMQ.ActiveMQStore;
 import java.util.HashMap;
 import java.util.Map;
 

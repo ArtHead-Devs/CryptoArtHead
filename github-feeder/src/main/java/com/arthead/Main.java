@@ -1,12 +1,12 @@
 package com.arthead;
 
-import com.arthead.controller.Controller;
-import com.arthead.controller.consume.GithubConnection;
-import com.arthead.controller.consume.GithubDeserializer;
-import com.arthead.controller.consume.GithubFetcher;
-import com.arthead.controller.consume.GithubProvider;
-import com.arthead.controller.persistence.ActiveMQ.ActiveMQStore;
-import com.arthead.controller.persistence.GithubRepositoryStore;
+import com.arthead.application.usecases.collectandstore.Controller;
+import com.arthead.application.adapters.repositoryprovider.GithubConnection;
+import com.arthead.application.adapters.repositoryprovider.GithubDeserializer;
+import com.arthead.application.adapters.repositoryprovider.GithubFetcher;
+import com.arthead.application.adapters.repositoryprovider.GithubProvider;
+import com.arthead.application.adapters.store.ActiveMQ.ActiveMQStore;
+import com.arthead.application.ports.GithubRepositoryStore;
 import java.util.List;
 import java.util.Map;
 
