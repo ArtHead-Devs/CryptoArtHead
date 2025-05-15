@@ -1,6 +1,6 @@
 package com.arthead;
 
-import com.arthead.application.usecases.listenandsave.MessageReceiver;
+import com.arthead.eventstorebuilder.application.usecases.eventstorermanager.MessageReceiver;
 import jakarta.jms.JMSException;
 
 import java.util.List;

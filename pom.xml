@@ -12,6 +12,7 @@
         <module>coinmarketcap-feeder</module>
         <module>github-feeder</module>
         <module>event-store-builder</module>
+        <module>coin-stats-predictor</module>
     </modules>
 
     <properties>
