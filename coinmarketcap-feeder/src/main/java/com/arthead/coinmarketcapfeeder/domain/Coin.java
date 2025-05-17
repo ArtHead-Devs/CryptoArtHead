@@ -3,16 +3,16 @@ package com.arthead.coinmarketcapfeeder.domain;
 public class Coin {
     private final String name;
     private final String symbol;
-    private final Integer maxSupply;
-    private final Integer circulatingSupply;
-    private final Integer totalSupply;
+    private final Long maxSupply;
+    private final Long circulatingSupply;
+    private final Long totalSupply;
     private final Boolean isActive;
     private final Boolean isFiduciary;
     private final Integer ranking;
     private final String ts;
     private final String ss = "CoinMarketCap";
 
-    public Coin(String name, String symbol, Integer maxSupply, Integer circulatingSupply, Integer totalSupply, Boolean isActive, Boolean isFiduciary, Integer ranking, String ts) {
+    public Coin(String name, String symbol, Long maxSupply, Long circulatingSupply, Long totalSupply, Boolean isActive, Boolean isFiduciary, Integer ranking, String ts) {
         this.name = name;
         this.symbol = symbol;
         this.maxSupply = maxSupply;
@@ -32,15 +32,15 @@ public class Coin {
         return symbol;
     }
 
-    public Integer getMaxSupply() {
+    public Long getMaxSupply() {
         return maxSupply;
     }
 
-    public Integer getCirculatingSupply() {
+    public Long getCirculatingSupply() {
         return circulatingSupply;
     }
 
-    public Integer getTotalSupply() {
+    public Long getTotalSupply() {
         return totalSupply;
     }
 

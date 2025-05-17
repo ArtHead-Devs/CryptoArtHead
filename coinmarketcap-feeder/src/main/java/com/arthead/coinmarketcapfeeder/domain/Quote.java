@@ -12,11 +12,11 @@ public class Quote {
     private final Double percentChange30d;
     private final Double percentChange60d;
     private final Double percentChange90d;
-    private final Double marketCap;
+    private final Long marketCap;
     private final String ts;
     private final String ss ="CoinMarketCap";
 
-    public Quote(String coin, String currency, Double price, Double volumeIn24h, Double volumeChange24h, Double percentChange1h, Double percentChange24h, Double percentChange7d, Double percentChange30d, Double percentChange60d, Double percentChange90d, Double marketCap, String ts) {
+    public Quote(String coin, String currency, Double price, Double volumeIn24h, Double volumeChange24h, Double percentChange1h, Double percentChange24h, Double percentChange7d, Double percentChange30d, Double percentChange60d, Double percentChange90d, Long marketCap, String ts) {
         this.coin = coin;
         this.currency = currency;
         this.price = price;
@@ -76,7 +76,7 @@ public class Quote {
         return percentChange90d;
     }
 
-    public Double getMarketCap() {
+    public Long getMarketCap() {
         return marketCap;
     }
 
