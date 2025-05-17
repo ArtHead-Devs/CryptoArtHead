@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class EventStore {
-    private static final String baseDir = "eventstore";
+    private static final String baseDirectory = "eventstore";
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
     private final Gson gson = new Gson();
 
@@ -28,7 +28,7 @@ public class EventStore {
     }
 
     private File getEventFile(String topic, String ss, LocalDate date) {
-        String directoryPath = String.format("%s/%s/%s", baseDir, topic, ss);
+        String directoryPath = String.format("%s/%s/%s", baseDirectory, topic, ss);
         File directory = new File(directoryPath);
         if (!directory.exists()) directory.mkdirs();
         String fileName = date.format(dateTimeFormatter) + ".events";
