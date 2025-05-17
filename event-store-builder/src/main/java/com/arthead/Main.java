@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws JMSException {
-        List<String> topics = List.of("github.Information", "github.Repositories", "crypto.Coins", "crypto.Quotes");
+        List<String> topics = List.of(args).subList(1, args.length);
         MessageReceiver receiver = new MessageReceiver(topics,args[0]);
         receiver.start();
     }

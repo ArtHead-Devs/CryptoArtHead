@@ -16,31 +16,31 @@ public class EventStore {
 
     public void saveEvent(String topic, String json) {
         try {
-            JsonObject obj = gson.fromJson(json, JsonObject.class);
-            String ss = obj.get("ss").getAsString();
-            String ts = obj.get("ts").getAsString();
-
+            JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+            String ss = jsonObject.get("ss").getAsString();
+            String ts = jsonObject.get("ts").getAsString();
             LocalDate date = LocalDate.parse(ts.substring(0, 10), DateTimeFormatter.ISO_DATE);
-
-            String dirPath = String.format("%s/%s/%s", baseDir, topic, ss);
-            String fileName = String.format("%s.events", date.format(dateTimeFormatter));
-
-            File directory = new File(dirPath);
-
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            File file = new File(directory, fileName);
-
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-                writer.write(json);
-                writer.newLine();
-            }
+            File file = getEventFile(topic, ss, date);
+            appendToFile(file, json);
         } catch (Exception e) {
-            System.err.println("Error guardando evento: " + e.getMessage());
+            System.err.println("Error saving events: " + e.getMessage());
+        }
+    }
+
+    private File getEventFile(String topic, String ss, LocalDate date) {
+        String directoryPath = String.format("%s/%s/%s", baseDir, topic, ss);
+        File directory = new File(directoryPath);
+        if (!directory.exists()) directory.mkdirs();
+        String fileName = date.format(dateTimeFormatter) + ".events";
+        return new File(directory, fileName);
+    }
+
+    private void appendToFile(File file, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            writer.write(content);
+            writer.newLine();
+        } catch (Exception e) {
+            throw new RuntimeException("Error writing in file: " + e.getMessage());
         }
     }
 }
-
-
