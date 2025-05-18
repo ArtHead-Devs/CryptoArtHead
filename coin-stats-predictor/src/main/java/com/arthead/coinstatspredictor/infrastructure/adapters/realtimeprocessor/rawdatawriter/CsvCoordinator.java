@@ -1,4 +1,4 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.rawdatawriter;
 
 import com.arthead.coinstatspredictor.infrastructure.ports.CsvWriter;
 import com.arthead.coinstatspredictor.util.EventUtils;

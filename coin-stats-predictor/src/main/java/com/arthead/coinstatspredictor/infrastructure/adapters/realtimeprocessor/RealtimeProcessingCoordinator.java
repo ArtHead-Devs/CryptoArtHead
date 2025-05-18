@@ -1,6 +1,7 @@
 package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
 
 import com.arthead.coinstatspredictor.infrastructure.adapters.common.CoinRepositoryAssociator;
+import com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.rawdatawriter.CsvCoordinator;
 import com.arthead.coinstatspredictor.infrastructure.ports.CsvParser;
 import com.arthead.coinstatspredictor.infrastructure.ports.RealTimeEventProcessor;
 import com.google.gson.JsonObject;
@@ -10,13 +11,13 @@ import java.io.IOException;
 import java.util.List;
 
 public class RealtimeProcessingCoordinator implements RealTimeEventProcessor {
-    private final CsvCoordinator csvCoordinator;
     private final CsvFileHandler cryptoCsvHandler;
     private final CsvFileHandler githubCsvHandler;
     private final CsvParser cryptoParser;
     private final CsvParser githubParser;
     private final CoinRepositoryAssociator datamartMerger;
     private final DatamartWriter datamartWriter;
+    private final CsvCoordinator csvCoordinator;
 
     public RealtimeProcessingCoordinator(CsvCoordinator csvCoordinator, MessageReceiver messageReceiver,
                                          CsvFileHandler cryptoCsvHandler, CsvFileHandler githubCsvHandler,

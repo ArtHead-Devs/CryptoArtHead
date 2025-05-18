@@ -1,5 +1,6 @@
 package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
 
+import com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.rawdatawriter.CsvCoordinator;
 import com.google.gson.JsonParser;
 import jakarta.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -45,7 +46,6 @@ public class MessageReceiver {
         try {
             if (message instanceof TextMessage textMessage) {
                 coordinator.writeEvent(JsonParser.parseString(textMessage.getText()).getAsJsonObject());
-                System.out.println("Event received in: " + topicName);
             }
         } catch (JMSException e) {
             System.err.println("Error processing message in " + topicName + ": " + e.getMessage());

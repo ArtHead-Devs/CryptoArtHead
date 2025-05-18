@@ -1,4 +1,4 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.rawdatawriter;
 
 import com.arthead.coinstatspredictor.infrastructure.ports.CsvWriter;
 import com.arthead.coinstatspredictor.util.CsvUtils;
@@ -50,7 +50,7 @@ public class GithubCsvWriter  implements CsvWriter {
     }
 
     private String buildCsvLine(JsonObject data) {
-        return String.format("%s,%s,%s,%s,%s,%s,%s,\"%s\",%s,%s,%s%n",
+        return String.format("%s,%s,%s,%s,%s,%s,%s,\"%s\",%s,%s,%s",
                 EventUtils.getSafeValue(data, "ts"),
                 EventUtils.getSafeValue(data, "name"),
                 EventUtils.getSafeValue(data, "stars"),
