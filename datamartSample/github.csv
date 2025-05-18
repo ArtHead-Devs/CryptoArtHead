@@ -1,0 +1,10 @@
+2025-05-18T22:36:10.658747800Z,go-ethereum,48958,20854,321,2211,ethereum,"Go implementation of the Ethereum protocol",2013-12-26T13:05:46Z,2025-05-18T20:40:35Z,2025-05-18T08:25:16Z
+2025-05-18T22:36:11.337170500Z,rippled,4859,1520,414,514,XRPLF,"Decentralized cryptocurrency blockchain daemon implementing the XRP Ledger protocol in C++",2011-11-07T04:40:15Z,2025-05-18T20:23:40Z,2025-05-18T20:27:46Z
+2025-05-18T22:36:11.679794500Z,java-tron,3881,1485,34,374,tronprotocol,"Java implementation of the Tron whitepaper",2017-12-26T10:20:38Z,2025-05-18T03:45:33Z,2025-05-12T06:07:07Z
+2025-05-18T22:36:12.037591400Z,cardano-node,3125,732,336,189,IntersectMBO,"The core component that is used to participate in a Cardano decentralised blockchain.",2019-05-23T20:12:22Z,2025-05-17T16:19:16Z,2025-05-18T00:07:59Z
+2025-05-18T22:36:12.394680600Z,chainlink,7311,1777,267,326,smartcontractkit,"node of the decentralized oracle network, bridging on and off-chain computation",2017-11-20T19:50:46Z,2025-05-18T20:25:50Z,2025-05-18T21:54:24Z
+2025-05-18T22:36:12.742925100Z,avalanchego,2230,752,142,118,ava-labs,"Go implementation of an Avalanche node.",2020-03-10T19:18:54Z,2025-05-16T17:49:52Z,2025-05-16T17:49:50Z
+2025-05-18T22:36:13.516044500Z,stellar-core,3205,997,304,266,stellar,"Reference implementation for the peer-to-peer agent that manages the Stellar network.",2014-11-24T17:11:12Z,2025-05-18T00:39:32Z,2025-05-17T00:57:33Z
+2025-05-18T22:36:13.830139500Z,polkadot-sdk,2251,925,1995,77,paritytech,"The Parity Polkadot Blockchain SDK",2023-08-04T08:33:14Z,2025-05-18T19:51:47Z,2025-05-18T21:51:42Z
+2025-05-18T22:36:14.158626900Z,ic,1644,347,280,75,dfinity,"Internet Computer blockchain source: the client/replica software run by nodes",2021-05-09T08:16:37Z,2025-05-16T19:33:20Z,2025-05-18T03:24:02Z
+2025-05-18T22:36:14.515164400Z,bittensor,1128,385,17,37,opentensor,"Internet-scale Neural Networks",2020-07-28T23:12:38Z,2025-05-18T20:42:06Z,2025-05-15T21:53:32Z
