@@ -1,7 +1,7 @@
 package com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider;
 
 import com.arthead.githubfeeder.infrastructure.ports.RepositoryProvider;
-import com.arthead.githubfeeder.domain.GithubData;
+import com.arthead.githubfeeder.domain.GithubResponse;
 import org.jsoup.Connection;
 
 import java.util.Map;
@@ -18,7 +18,7 @@ public class GithubProvider implements RepositoryProvider {
     }
 
     @Override
-    public GithubData provide(Map<String, String> repoQuery) {
+    public GithubResponse provide(Map<String, String> repoQuery) {
         try {
             String owner = repoQuery.get("owner");
             String repo = repoQuery.get("repo");

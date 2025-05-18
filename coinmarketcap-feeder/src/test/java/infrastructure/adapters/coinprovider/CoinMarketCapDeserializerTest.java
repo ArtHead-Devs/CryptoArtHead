@@ -2,7 +2,7 @@ package infrastructure.adapters.coinprovider;
 
 import com.arthead.coinmarketcapfeeder.domain.Coin;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapDeserializer;
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapData;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import com.arthead.coinmarketcapfeeder.domain.Quote;
 import org.junit.Assert;
 import org.junit.Before;
@@ -67,7 +67,7 @@ public class CoinMarketCapDeserializerTest {
     @Test
     public void deserializerTest() {
         CoinMarketCapDeserializer deserializer = new CoinMarketCapDeserializer();
-        CoinMarketCapData data = deserializer.deserialize(json);
+        CoinMarketCapResponse data = deserializer.deserialize(json);
 
         List<Coin> coins = data.getCoins();
         Assert.assertEquals(2, coins.size());

@@ -1,7 +1,7 @@
 package com.arthead.coinmarketcapfeeder.infrastructure.ports;
 
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapData;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 
 public interface CoinProvider {
-    CoinMarketCapData provide();
+    CoinMarketCapResponse provide();
 }

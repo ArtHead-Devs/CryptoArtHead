@@ -1,10 +1,10 @@
 package com.arthead.githubfeeder.domain;
 
-public class GithubData {
+public class GithubResponse {
     private final Information information;
     private final Repository repository;
 
-    public GithubData(Information information, Repository repository) {
+    public GithubResponse(Information information, Repository repository) {
         this.information = information;
         this.repository = repository;
     }

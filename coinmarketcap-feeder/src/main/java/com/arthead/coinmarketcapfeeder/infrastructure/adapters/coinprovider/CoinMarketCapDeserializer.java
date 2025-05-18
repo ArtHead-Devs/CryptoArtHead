@@ -1,7 +1,7 @@
 package com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider;
 
 import com.arthead.coinmarketcapfeeder.domain.Coin;
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapData;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import com.arthead.coinmarketcapfeeder.domain.Quote;
 import com.arthead.coinmarketcapfeeder.util.JsonHelper;
 import com.google.gson.Gson;
@@ -13,11 +13,11 @@ import java.util.*;
 public class CoinMarketCapDeserializer {
     Gson gson = new Gson();
 
-    public CoinMarketCapData deserialize(String json) {
+    public CoinMarketCapResponse deserialize(String json) {
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         List<Coin> coins = parseCoins(jsonObject);
         List<Quote> quotes = parseQuotes(jsonObject);
-        return new CoinMarketCapData(coins, quotes);
+        return new CoinMarketCapResponse(coins, quotes);
     }
 
     private List<Coin> parseCoins(JsonObject jsonObject) {

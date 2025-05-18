@@ -4,7 +4,7 @@ import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.Githu
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubDeserializer;
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubFetcher;
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubProvider;
-import com.arthead.githubfeeder.domain.GithubData;
+import com.arthead.githubfeeder.domain.GithubResponse;
 import com.arthead.githubfeeder.domain.Information;
 import com.arthead.githubfeeder.domain.Repository;
 import org.junit.Assert;
@@ -36,7 +36,7 @@ public class GithubProviderTest {
 
     @Test
     public void provide_ShouldReturnValidGithubData() {
-        GithubData data = provider.provide(repoQuery);
+        GithubResponse data = provider.provide(repoQuery);
 
         Assert.assertNotNull(data);
         Repository repo = data.getRepository();

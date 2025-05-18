@@ -2,7 +2,7 @@ package com.arthead.githubfeeder.application.usecases.collectorandstorer;
 
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubProvider;
 import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
-import com.arthead.githubfeeder.domain.GithubData;
+import com.arthead.githubfeeder.domain.GithubResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -40,14 +40,14 @@ public class Controller {
         String repoName = repoQuery.get("repo");
         String formattedName = owner + "/" + repoName;
         try {
-            GithubData data = provider.provide(Map.of("owner", owner, "repo", repoName));
+            GithubResponse data = provider.provide(Map.of("owner", owner, "repo", repoName));
             handleRepositoryData(data, formattedName);
         } catch (Exception e) {
             System.out.println("- " + formattedName + ": Error - " + e.getMessage());
         }
     }
 
-    private void handleRepositoryData(GithubData data, String formattedName) {
+    private void handleRepositoryData(GithubResponse data, String formattedName) {
         if (data == null) {
             System.out.println("- " + formattedName + ": No data received");
         } else {

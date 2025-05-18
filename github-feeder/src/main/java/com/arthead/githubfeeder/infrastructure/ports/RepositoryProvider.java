@@ -1,9 +1,9 @@
 package com.arthead.githubfeeder.infrastructure.ports;
 
-import com.arthead.githubfeeder.domain.GithubData;
+import com.arthead.githubfeeder.domain.GithubResponse;
 
 import java.util.Map;
 
 public interface RepositoryProvider {
-    GithubData provide(Map<String, String> repoQuery);
+    GithubResponse provide(Map<String, String> repoQuery);
 }

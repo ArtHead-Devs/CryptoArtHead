@@ -1,7 +1,7 @@
 package infrastructure.adapters.repositoryprovider;
 
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubDeserializer;
-import com.arthead.githubfeeder.domain.GithubData;
+import com.arthead.githubfeeder.domain.GithubResponse;
 import com.arthead.githubfeeder.domain.Information;
 import com.arthead.githubfeeder.domain.Repository;
 import org.junit.Assert;
@@ -33,9 +33,9 @@ public class GithubDeserializerTest {
     @Test
     public void deserializeTest() {
         GithubDeserializer deserializer = new GithubDeserializer();
-        GithubData githubData = deserializer.deserialize(json);
+        GithubResponse githubResponse = deserializer.deserialize(json);
 
-        Repository repo = githubData.getRepository();
+        Repository repo = githubResponse.getRepository();
         Assert.assertEquals("example-repo", repo.getName());
         Assert.assertEquals("johndoe", repo.getOwner());
         Assert.assertEquals("This is a sample repository", repo.getDescription());
@@ -44,7 +44,7 @@ public class GithubDeserializerTest {
         Assert.assertEquals("2021-07-10T12:00:00Z", repo.getUpdateDate());
         Assert.assertEquals("2021-07-15T14:45:00Z", repo.getPushDate());
 
-        Information info = githubData.getInformation();
+        Information info = githubResponse.getInformation();
         Assert.assertEquals("example-repo", info.getName());
         Assert.assertEquals(150, info.getStars());
         Assert.assertEquals(42, info.getForks());

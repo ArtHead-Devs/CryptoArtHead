@@ -3,7 +3,7 @@ package com.arthead.coinmarketcapfeeder.application.usecases.collectorandstorer;
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
 import com.arthead.coinmarketcapfeeder.domain.Coin;
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapData;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import com.arthead.coinmarketcapfeeder.domain.Quote;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -30,7 +30,7 @@ public class Controller {
     private void processData() {
         System.out.println("\nStarting update cycle");
 
-        CoinMarketCapData data = provider.provide();
+        CoinMarketCapResponse data = provider.provide();
 
         if (data == null || data.getCoins().isEmpty()) {
             System.out.println("No data received from API");

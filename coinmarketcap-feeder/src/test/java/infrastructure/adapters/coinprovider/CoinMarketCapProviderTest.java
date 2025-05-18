@@ -4,7 +4,7 @@ import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.Coin
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapDeserializer;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapFetcher;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapProvider;
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapData;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class CoinMarketCapProviderTest {
     @Test
     public void providerTest() {
         CoinMarketCapProvider provider = new CoinMarketCapProvider(connection, fetcher, deserializer);
-        CoinMarketCapData coins = provider.provide();
+        CoinMarketCapResponse coins = provider.provide();
         Assert.assertNotNull(coins);
         Assert.assertFalse(coins.getCoins().isEmpty());
     }

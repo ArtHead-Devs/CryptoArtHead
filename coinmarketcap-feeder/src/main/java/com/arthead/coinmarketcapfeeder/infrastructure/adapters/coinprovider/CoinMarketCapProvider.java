@@ -1,7 +1,7 @@
 package com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider;
 
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapData;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import org.jsoup.Connection;
 
 public class CoinMarketCapProvider implements CoinProvider {
@@ -17,7 +17,7 @@ public class CoinMarketCapProvider implements CoinProvider {
     }
 
     @Override
-    public CoinMarketCapData provide(){
+    public CoinMarketCapResponse provide(){
         try {
             Connection httpConnection = connection.createConnection();
             String json = fetcher.fetcher(httpConnection);

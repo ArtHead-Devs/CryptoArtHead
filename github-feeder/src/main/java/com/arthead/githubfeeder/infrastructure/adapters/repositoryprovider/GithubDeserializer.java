@@ -1,6 +1,6 @@
 package com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider;
 
-import com.arthead.githubfeeder.domain.GithubData;
+import com.arthead.githubfeeder.domain.GithubResponse;
 import com.arthead.githubfeeder.domain.Information;
 import com.arthead.githubfeeder.domain.Repository;
 import com.arthead.githubfeeder.util.JsonHelper;
@@ -11,11 +11,11 @@ import java.time.Instant;
 public class GithubDeserializer {
     private final Gson gson = new Gson();
 
-    public GithubData deserialize(String json) {
+    public GithubResponse deserialize(String json) {
         JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
         Information information = parseInformation(jsonObject);
         Repository repository = parseRepository(jsonObject);
-        return new GithubData(information, repository);
+        return new GithubResponse(information, repository);
     }
 
     private Information parseInformation(JsonObject jsonObject){

@@ -2,11 +2,11 @@ package com.arthead.coinmarketcapfeeder.domain;
 
 import java.util.List;
 
-public class CoinMarketCapData {
+public class CoinMarketCapResponse {
     private final List<Coin> coins;
     private final List<Quote> quotes;
 
-    public CoinMarketCapData(List<Coin> coins, List<Quote> quotes) {
+    public CoinMarketCapResponse(List<Coin> coins, List<Quote> quotes) {
         this.coins = coins;
         this.quotes = quotes;
     }
