@@ -1,6 +1,5 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter;
 
-import com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.rawdatawriter.CsvCoordinator;
 import com.google.gson.JsonParser;
 import jakarta.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;

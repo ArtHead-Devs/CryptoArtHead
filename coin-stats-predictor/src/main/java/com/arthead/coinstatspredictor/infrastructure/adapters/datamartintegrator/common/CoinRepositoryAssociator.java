@@ -1,4 +1,4 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.common;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.common;
 
 import com.arthead.coinstatspredictor.util.EventUtils;
 import com.google.gson.JsonObject;

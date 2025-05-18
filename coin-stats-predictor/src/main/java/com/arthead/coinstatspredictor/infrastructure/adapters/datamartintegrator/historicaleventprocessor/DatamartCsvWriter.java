@@ -1,6 +1,7 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.historicaleventprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.historicaleventprocessor;
 
-import com.arthead.coinstatspredictor.infrastructure.ports.DatamartExporter;
+import com.arthead.coinstatspredictor.infrastructure.ports.DatamartWriter;
+import com.arthead.coinstatspredictor.util.CsvUtils;
 import com.arthead.coinstatspredictor.util.EventUtils;
 import com.google.gson.JsonObject;
 
@@ -9,8 +10,8 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatamartCsvExporter implements DatamartExporter {
-    private final String outputCsvPath;
+public class DatamartCsvWriter implements DatamartWriter {
+    private final Path outputCsvPath;
     private static final String[] header = {
             "coin_name", "repository_name", "stars", "forks", "issuesAndPullRequest", "watchers",
             "currency", "price", "volumeChange24h", "percentChange1h", "percentChange24h",
@@ -18,26 +19,20 @@ public class DatamartCsvExporter implements DatamartExporter {
             "coin_ts", "repository_ts"
     };
 
-    public DatamartCsvExporter(String outputCsvPath) {
-        this.outputCsvPath = outputCsvPath;
+    public DatamartCsvWriter(String outputCsvPath) {
+        this.outputCsvPath = Path.of(outputCsvPath);
     }
 
     @Override
     public void writeDatamart(List<JsonObject> data) {
         try {
-            createOutputDirectoryIfNeeded();
-            Files.write(Path.of(outputCsvPath), generateCsvLines(data));
+            String headerString = String.join(",", header);
+            CsvUtils.initializeFile(outputCsvPath, headerString);
+            Files.write(outputCsvPath, generateCsvLines(data));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         System.out.println("Datamart exported successfully to " + outputCsvPath + " with " + data.size() + " records.");
-    }
-
-    private void createOutputDirectoryIfNeeded() throws IOException {
-        Path parentDir = Path.of(outputCsvPath).getParent();
-        if (parentDir != null) {
-            Files.createDirectories(parentDir);
-        }
     }
 
     private List<String> generateCsvLines(List<JsonObject> data) {

@@ -1,7 +1,7 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.historicaleventprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.historicaleventprocessor;
 
-import com.arthead.coinstatspredictor.infrastructure.adapters.common.CoinRepositoryAssociator;
-import com.arthead.coinstatspredictor.infrastructure.ports.DatamartExporter;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.common.CoinRepositoryAssociator;
+import com.arthead.coinstatspredictor.infrastructure.ports.DatamartWriter;
 import com.arthead.coinstatspredictor.infrastructure.ports.HistoricalEventProcessor;
 import com.arthead.coinstatspredictor.infrastructure.ports.HistoricalEventLoader;
 import com.google.gson.JsonObject;
@@ -13,12 +13,12 @@ public class HistoricalEventProcessingCoordinator implements HistoricalEventProc
     private final GithubInformationMerger githubInformationMerger;
     private final CoinQuoteMerger coinQuoteMerger;
     private final CoinRepositoryAssociator githubCoinAssociator;
-    private final DatamartExporter exporter;
+    private final DatamartWriter exporter;
 
     public HistoricalEventProcessingCoordinator(HistoricalEventLoader historicalEventReader,
                                                 GithubInformationMerger githubInformationMerger,
                                                 CoinQuoteMerger coinQuoteMerger, CoinRepositoryAssociator githubCoinAssociator,
-                                                DatamartExporter exporter) {
+                                                DatamartWriter exporter) {
         this.historicalEventReader = historicalEventReader;
         this.githubInformationMerger = githubInformationMerger;
         this.coinQuoteMerger = coinQuoteMerger;

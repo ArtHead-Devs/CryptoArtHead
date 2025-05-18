@@ -1,4 +1,4 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter;
 
 import com.arthead.coinstatspredictor.infrastructure.ports.CsvParser;
 import com.arthead.coinstatspredictor.util.CsvUtils;

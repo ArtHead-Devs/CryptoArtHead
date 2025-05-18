@@ -2,38 +2,44 @@ package com.arthead.coinstatspredictor.application.usecases.eventhandlerandstore
 
 import com.arthead.coinstatspredictor.infrastructure.ports.HistoricalEventProcessor;
 import com.arthead.coinstatspredictor.infrastructure.ports.RealTimeEventProcessor;
+import com.arthead.coinstatspredictor.util.FileCleanupUtil;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class EventController {
+public class DatamartEventController {
     private final HistoricalEventProcessor historicalProcessor;
     private final RealTimeEventProcessor realtimeProcessor;
     private final ScheduledExecutorService scheduler;
+    private final List<String> csvPaths;
 
-    public EventController(HistoricalEventProcessor historicalProcessor,
-                          RealTimeEventProcessor realtimeProcessor) {
+    public DatamartEventController(HistoricalEventProcessor historicalProcessor,
+                                   RealTimeEventProcessor realtimeProcessor,
+                                   List<String> csvPaths) {
         this.historicalProcessor = historicalProcessor;
         this.realtimeProcessor = realtimeProcessor;
+        this.csvPaths = csvPaths;
         this.scheduler = Executors.newScheduledThreadPool(2);
     }
 
     public void startApplication() {
+        FileCleanupUtil.deleteFiles(csvPaths);
         runHistoricalProcessing();
         startRealTimeProcessing();
     }
 
     private void runHistoricalProcessing() {
-        System.out.println("=== INICIANDO PROCESAMIENTO HISTÓRICO ===");
+        System.out.println("=== STARTING HISTORICAL PROCESSING ===");
         try {
             historicalProcessor.processHistoricalEvents();
         } catch (Exception e) {
-            System.err.println("Error en procesamiento histórico: " + e.getMessage());
+            System.err.println("Error during historical processing: " + e.getMessage());
         }
     }
 
     private void startRealTimeProcessing() {
-        System.out.println("\n=== INICIANDO PROCESAMIENTO EN TIEMPO REAL ===");
+        System.out.println("\n=== STARTING REAL-TIME PROCESSING ===");
         scheduler.scheduleAtFixedRate(
                 this::processRealTime,
                 0,
@@ -46,7 +52,7 @@ public class EventController {
         try {
             realtimeProcessor.processRealtimeData();
         } catch (Exception e) {
-            System.err.println("Error en procesamiento tiempo real: " + e.getMessage());
+            System.err.println("Error during real-time processing: " + e.getMessage());
         }
     }
 }

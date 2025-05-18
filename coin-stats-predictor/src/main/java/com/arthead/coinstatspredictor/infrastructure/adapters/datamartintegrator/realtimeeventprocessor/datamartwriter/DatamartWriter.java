@@ -1,6 +1,5 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter;
 
-import com.arthead.coinstatspredictor.infrastructure.ports.DatamartExporter;
 import com.arthead.coinstatspredictor.util.EventUtils;
 import com.google.gson.JsonObject;
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
-public class DatamartWriter implements DatamartExporter {
+public class DatamartWriter implements com.arthead.coinstatspredictor.infrastructure.ports.DatamartWriter {
     private static final String[] HEADER = {
             "coin_name", "repository_name", "stars", "forks",
             "issuesAndPullRequest", "watchers", "currency", "price",

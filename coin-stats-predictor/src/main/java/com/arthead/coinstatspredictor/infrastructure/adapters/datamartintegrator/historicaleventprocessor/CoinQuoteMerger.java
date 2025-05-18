@@ -1,4 +1,4 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.historicaleventprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.historicaleventprocessor;
 
 import com.arthead.coinstatspredictor.util.EventUtils;
 import com.google.gson.JsonObject;

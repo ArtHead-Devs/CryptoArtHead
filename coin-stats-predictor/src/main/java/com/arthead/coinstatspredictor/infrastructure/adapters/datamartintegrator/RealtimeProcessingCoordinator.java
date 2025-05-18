@@ -1,7 +1,9 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator;
 
-import com.arthead.coinstatspredictor.infrastructure.adapters.common.CoinRepositoryAssociator;
-import com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.rawdatawriter.CsvCoordinator;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.common.CoinRepositoryAssociator;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter.DatamartWriter;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.CsvFileHandler;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.MessageReceiver;
 import com.arthead.coinstatspredictor.infrastructure.ports.CsvParser;
 import com.arthead.coinstatspredictor.infrastructure.ports.RealTimeEventProcessor;
 import com.google.gson.JsonObject;
@@ -17,13 +19,11 @@ public class RealtimeProcessingCoordinator implements RealTimeEventProcessor {
     private final CsvParser githubParser;
     private final CoinRepositoryAssociator datamartMerger;
     private final DatamartWriter datamartWriter;
-    private final CsvCoordinator csvCoordinator;
 
-    public RealtimeProcessingCoordinator(CsvCoordinator csvCoordinator, MessageReceiver messageReceiver,
+    public RealtimeProcessingCoordinator(MessageReceiver messageReceiver,
                                          CsvFileHandler cryptoCsvHandler, CsvFileHandler githubCsvHandler,
                                          CsvParser cryptoParser, CsvParser githubParser,
                                          CoinRepositoryAssociator datamartMerger, DatamartWriter datamartWriter) throws JMSException {
-        this.csvCoordinator = csvCoordinator;
         this.cryptoCsvHandler = cryptoCsvHandler;
         this.githubCsvHandler = githubCsvHandler;
         this.cryptoParser = cryptoParser;

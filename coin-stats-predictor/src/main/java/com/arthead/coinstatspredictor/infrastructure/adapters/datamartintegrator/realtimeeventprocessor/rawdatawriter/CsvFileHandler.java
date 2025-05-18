@@ -1,4 +1,4 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter;
 
 import java.io.IOException;
 import java.nio.file.*;
