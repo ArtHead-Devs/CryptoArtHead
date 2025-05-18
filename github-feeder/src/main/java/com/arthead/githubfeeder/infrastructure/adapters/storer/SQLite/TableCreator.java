@@ -1,4 +1,4 @@
-package com.arthead.githubfeeder.infrastructure.adapters.store.SQLite;
+package com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,7 +41,7 @@ public class TableCreator {
             createInformationStatement.execute();
 
         } catch (Exception e) {
-            System.err.println("Error creando las tablas de la base de datos. " + e);
+            System.err.println("Error creating the database tables. " + e);
         }
     }
 }

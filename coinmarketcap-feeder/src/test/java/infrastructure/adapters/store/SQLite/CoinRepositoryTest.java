@@ -1,8 +1,8 @@
 package infrastructure.adapters.store.SQLite;
 
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.store.SQLite.CoinRepository;
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.store.SQLite.SQLiteConnection;
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.store.SQLite.TableCreator;
+import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.CoinRepository;
+import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
+import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.TableCreator;
 import com.arthead.coinmarketcapfeeder.domain.Coin;
 import org.junit.Before;
 import org.junit.After;

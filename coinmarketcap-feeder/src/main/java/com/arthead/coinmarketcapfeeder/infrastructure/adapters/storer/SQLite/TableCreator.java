@@ -1,4 +1,4 @@
-package com.arthead.coinmarketcapfeeder.infrastructure.adapters.store.SQLite;
+package com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

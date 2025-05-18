@@ -1,7 +1,7 @@
 package infrastructure.adapters.store.SQLite;
 
-import com.arthead.githubfeeder.infrastructure.adapters.store.SQLite.GithubRepository;
-import com.arthead.githubfeeder.infrastructure.adapters.store.SQLite.SQLiteConnection;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.GithubRepository;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
 import com.arthead.githubfeeder.domain.Repository;
 import org.junit.After;
 import org.junit.Assert;
@@ -63,7 +63,7 @@ public class GithubRepositoryTest {
         try {
             Files.deleteIfExists(Paths.get(testDb));
         } catch (Exception e) {
-            System.err.println("Error limpiando test: " + e.getMessage());
+            System.err.println("Error cleaning test database. " + e.getMessage());
         }
     }
 }

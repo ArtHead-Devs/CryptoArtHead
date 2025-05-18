@@ -1,4 +1,4 @@
-package com.arthead.coinmarketcapfeeder.infrastructure.adapters.store.SQLite;
+package com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite;
 
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
 import com.arthead.coinmarketcapfeeder.domain.Coin;

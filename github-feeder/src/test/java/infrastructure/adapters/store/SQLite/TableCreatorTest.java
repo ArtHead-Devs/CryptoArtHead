@@ -1,7 +1,7 @@
 package infrastructure.adapters.store.SQLite;
 
-import com.arthead.githubfeeder.infrastructure.adapters.store.SQLite.SQLiteConnection;
-import com.arthead.githubfeeder.infrastructure.adapters.store.SQLite.TableCreator;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.TableCreator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;

@@ -7,7 +7,7 @@ import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.Coin
 import com.arthead.coinmarketcapfeeder.application.usecases.collectorandstorer.Controller;
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.store.ActiveMQ.ActiveMQStore;
+import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.ActiveMQ.ActiveMQStore;
 import java.util.HashMap;
 import java.util.Map;
 

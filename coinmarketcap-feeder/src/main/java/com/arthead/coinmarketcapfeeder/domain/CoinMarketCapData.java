@@ -12,10 +12,10 @@ public class CoinMarketCapData {
     }
 
     public List<Coin> getCoins() {
-        return coins;
+        return List.copyOf(coins);
     }
 
     public List<Quote> getQuotes() {
-        return quotes;
+        return List.copyOf(quotes);
     }
 }

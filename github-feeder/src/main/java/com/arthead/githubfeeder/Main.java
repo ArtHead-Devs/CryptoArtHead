@@ -5,7 +5,7 @@ import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.Githu
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubDeserializer;
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubFetcher;
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubProvider;
-import com.arthead.githubfeeder.infrastructure.adapters.store.ActiveMQ.ActiveMQStore;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.ActiveMQ.ActiveMQStore;
 import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,12 @@ public class Main {
                 Map.of("owner", "opentensor", "repo", "BitTensor")
         );
 
-        System.out.println("=== SISTEMA DE ACTUALIZACIÓN DE REPOSITORIOS ===");
+        if (args.length < 2) {
+            System.err.println("Error: Usage -> java Main <API_KEY> <DB_PATH/ACTIVEMQ_LINK>");
+            return;
+        }
+
+        System.out.println("=== REPOSITORY UPDATE SYSTEM ===");
 
         GithubConnection connection = new GithubConnection(
                 args[0],

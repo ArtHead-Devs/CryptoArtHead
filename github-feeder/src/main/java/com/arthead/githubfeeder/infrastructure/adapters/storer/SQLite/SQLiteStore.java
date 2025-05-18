@@ -1,4 +1,4 @@
-package com.arthead.githubfeeder.infrastructure.adapters.store.SQLite;
+package com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite;
 
 import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
 import com.arthead.githubfeeder.domain.Information;

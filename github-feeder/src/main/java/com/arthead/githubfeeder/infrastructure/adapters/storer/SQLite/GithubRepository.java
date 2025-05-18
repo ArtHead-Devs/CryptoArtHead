@@ -1,4 +1,4 @@
-package com.arthead.githubfeeder.infrastructure.adapters.store.SQLite;
+package com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite;
 
 import com.arthead.githubfeeder.domain.Repository;
 
@@ -20,7 +20,7 @@ public class GithubRepository {
                 insertNewRepository(connection, repository);
             }
         } catch (SQLException e) {
-            System.err.println("Error al procesar repositorio: " + e.getMessage());
+            System.err.println("Error processing repository. " + e.getMessage());
         }
     }
 

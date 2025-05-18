@@ -24,45 +24,35 @@ public class Controller {
     }
 
     public void execute() {
-        Runnable task = () -> {
-            processRepositories();
-        };
-
+        Runnable task = this::processAllRepositories;
         scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.MINUTES);
-        System.out.println("Controlador GitHub iniciado - Actualizaciones cada 5 minutos");
+        System.out.println("GitHub Controller started - Updates every 5 minutes");
     }
 
-    private void processRepositories() {
-        System.out.println("\nIniciando ciclo de actualización:");
-
-        for (Map<String, String> repoQuery : repoList) {
-            String owner = repoQuery.get("owner");
-            String repoName = repoQuery.get("repo");
-
-            try {
-                processSingleRepository(owner, repoName);
-            } catch (Exception e) {
-                System.out.println("- Error en " + owner + "/" + repoName + ": " + e.getMessage());
-            }
-        }
-
-        System.out.println("Proxima actualización en 5 minutos");
+    private void processAllRepositories() {
+        System.out.println("\nStarting update cycle:");
+        repoList.forEach(this::processRepository);
+        System.out.println("Next update in 5 minutes");
     }
 
-    private void processSingleRepository(String owner, String repoName) {
+    private void processRepository(Map<String, String> repoQuery) {
+        String owner = repoQuery.get("owner");
+        String repoName = repoQuery.get("repo");
+        String formattedName = owner + "/" + repoName;
         try {
             GithubData data = provider.provide(Map.of("owner", owner, "repo", repoName));
-
-            if (data == null) {
-                System.out.println("- " + owner + "/" + repoName + ": Sin datos");
-                return;
-            }
-
-            store.save(data.getRepository(), data.getInformation());
-            System.out.println("- " + owner + "/" + repoName + " actualizado");
-
+            handleRepositoryData(data, formattedName);
         } catch (Exception e) {
-            System.out.println("- Error procesando " + repoName + ": " + e.getMessage());
+            System.out.println("- " + formattedName + ": Error - " + e.getMessage());
+        }
+    }
+
+    private void handleRepositoryData(GithubData data, String formattedName) {
+        if (data == null) {
+            System.out.println("- " + formattedName + ": No data received");
+        } else {
+            store.save(data.getRepository(), data.getInformation());
+            System.out.println("- " + formattedName + ": Successfully updated");
         }
     }
 }

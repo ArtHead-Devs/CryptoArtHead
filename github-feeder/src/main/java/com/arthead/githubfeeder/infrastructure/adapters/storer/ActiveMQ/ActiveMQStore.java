@@ -1,4 +1,4 @@
-package com.arthead.githubfeeder.infrastructure.adapters.store.ActiveMQ;
+package com.arthead.githubfeeder.infrastructure.adapters.storer.ActiveMQ;
 
 import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
 import com.arthead.githubfeeder.domain.Information;
@@ -20,7 +20,7 @@ public class ActiveMQStore implements GithubRepositoryStore {
             repositoryFeeder.sendRepository(repository);
             informationFeeder.sendInformation(information);
         } catch (JMSException e) {
-            throw new RuntimeException("Error enviando datos a ActiveMQ", e);
+            throw new RuntimeException("Error sending data to ActiveMQ", e);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.arthead.githubfeeder.infrastructure.adapters.store.SQLite;
+package com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite;
 
 import com.arthead.githubfeeder.domain.Information;
 import java.sql.Connection;
@@ -19,7 +19,7 @@ public class InformationRepository {
                 insertNewInformation(connection, information);
             }
         } catch (SQLException e) {
-            System.err.println("Error al procesar moneda. " + e);
+            System.err.println("Error processing repository information. " + e);
         }
     }
 

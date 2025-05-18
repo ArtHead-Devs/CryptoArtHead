@@ -26,7 +26,7 @@ public class GithubProvider implements RepositoryProvider {
             String json = fetcher.fetcher(connection);
             return deserializer.deserialize(json);
         } catch (Exception e) {
-            throw new RuntimeException("Error al obtener repositorio. ", e);
+            throw new RuntimeException("Error getting repository.", e);
         }
     }
 }

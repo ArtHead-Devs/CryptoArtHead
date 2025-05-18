@@ -1,7 +1,7 @@
 package infrastructure.adapters.store.SQLite;
 
-import com.arthead.githubfeeder.infrastructure.adapters.store.SQLite.SQLiteConnection;
-import com.arthead.githubfeeder.infrastructure.adapters.store.SQLite.InformationRepository;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.InformationRepository;
 import com.arthead.githubfeeder.domain.Information;
 import org.junit.After;
 import org.junit.Assert;
@@ -67,7 +67,7 @@ public class InformationRepositoryTest {
         try {
             Files.deleteIfExists(dbPath);
         } catch (IOException e) {
-            System.err.println("Error limpiando BD: " + e.getMessage());
+            System.err.println("Error cleaning test database. " + e.getMessage());
         }
     }
 }

@@ -1,26 +1,26 @@
-package com.arthead.coinmarketcapfeeder.infrastructure.adapters.store.ActiveMQ;
+package com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.ActiveMQ;
 
-import com.arthead.coinmarketcapfeeder.domain.Quote;
+import com.arthead.coinmarketcapfeeder.domain.Coin;
 import com.google.gson.Gson;
 import jakarta.jms.*;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import java.util.List;
 
-public class QuoteFeeder {
+public class CoinFeeder {
     private final String url;
-    private static final String subject = "crypto.Quotes";
+    private static final String subject = "crypto.Coins";
     private final Gson gson = new Gson();
 
-    public QuoteFeeder(String url) {
+    public CoinFeeder(String url) {
         this.url = url;
     }
 
-    public void sendQuotes(List<Quote> quotes) throws JMSException {
+    public void sendCoins(List<Coin> coins) throws JMSException {
         Connection connection = createAndStartConnection();
         Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
         MessageProducer producer = setupTopicProducer(session);
-        sendMessages(quotes, producer, session);
+        sendMessages(coins, producer, session);
         closeResources(connection);
     }
 
@@ -36,15 +36,15 @@ public class QuoteFeeder {
         return session.createProducer(destination);
     }
 
-    private void sendMessages(List<Quote> quotes, MessageProducer producer, Session session) throws JMSException {
-        for (Quote quote : quotes) {
-            TextMessage message = createMessageForQuote(quote, session);
+    private void sendMessages(List<Coin> coins, MessageProducer producer, Session session) throws JMSException {
+        for (Coin coin : coins) {
+            TextMessage message = createMessageForCoin(coin, session);
             producer.send(message);
         }
     }
 
-    private TextMessage createMessageForQuote(Quote quote, Session session) throws JMSException {
-        String json = gson.toJson(quote);
+    private TextMessage createMessageForCoin(Coin coin, Session session) throws JMSException {
+        String json = gson.toJson(coin);
         return session.createTextMessage(json);
     }
 
