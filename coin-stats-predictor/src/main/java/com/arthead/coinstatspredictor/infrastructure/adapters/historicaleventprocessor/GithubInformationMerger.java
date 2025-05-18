@@ -6,14 +6,14 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
-public class GithubInformationDataMerger {
+public class GithubInformationMerger {
     private static final Duration tolerance = Duration.ofMinutes(5);
 
-    public List<JsonObject> mergeRepositoryWithInformation(Map<String, List<JsonObject>> info, Map<String,
-            List<JsonObject>> repos) {
+    public List<JsonObject> mergeRepositoryWithInformation(Map<String, List<JsonObject>> information, Map<String,
+            List<JsonObject>> repositories) {
         List<JsonObject> merged = new ArrayList<>();
-        repos.forEach((name, repoList) -> {
-            List<JsonObject> infoList = info.get(name);
+        repositories.forEach((name, repoList) -> {
+            List<JsonObject> infoList = information.get(name);
             if (infoList != null) mergeRepositoryAndInformationEvents(infoList, repoList, merged);
         });
         return merged;

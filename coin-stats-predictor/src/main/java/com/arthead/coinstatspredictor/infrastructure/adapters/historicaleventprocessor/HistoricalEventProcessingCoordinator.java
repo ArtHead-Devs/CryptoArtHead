@@ -9,15 +9,15 @@ import java.util.Map;
 
 public class HistoricalEventProcessingCoordinator implements HistoricalEventProcessor {
     private final HistoricalEventLoader historicalEventReader;
-    private final GithubInformationDataMerger githubInformationMerger;
-    private final CoinQuoteDataMerger coinQuoteMerger;
+    private final GithubInformationMerger githubInformationMerger;
+    private final CoinQuoteMerger coinQuoteMerger;
     private final CoinRepositoryAssociator githubCoinAssociator;
     private final DatamartExporter exporter;
 
     public HistoricalEventProcessingCoordinator(String datamartPath) {
         this.historicalEventReader = new HistoricalEventReader();
-        this.githubInformationMerger = new GithubInformationDataMerger();
-        this.coinQuoteMerger = new CoinQuoteDataMerger();
+        this.githubInformationMerger = new GithubInformationMerger();
+        this.coinQuoteMerger = new CoinQuoteMerger();
         this.githubCoinAssociator = new CoinRepositoryAssociator();
         this.exporter = new DatamartCsvExporter(datamartPath);
     }

@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
-public class CoinQuoteDataMerger {
+public class CoinQuoteMerger {
     private static final Duration tolerance = Duration.ofMinutes(5);
 
     public List<JsonObject> mergeCoinWithQuotes(Map<String, List<JsonObject>> coinsEvents, Map<String,
