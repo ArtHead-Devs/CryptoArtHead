@@ -1,26 +1,45 @@
 package com.arthead.coinstatspredictor;
 
-import com.arthead.coinstatspredictor.application.usecases.eventhandlerandstorer.EventController;
-import com.arthead.coinstatspredictor.infrastructure.adapters.common.CoinRepositoryAssociator;
-import com.arthead.coinstatspredictor.infrastructure.adapters.historicaleventprocessor.*;
-import com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.*;
-import com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.CoinMarketCapCsvParser;
-import com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor.rawdatawriter.CsvCoordinator;
+import com.arthead.coinstatspredictor.application.usecases.eventhandlerandstorer.DatamartEventController;
+import com.arthead.coinstatspredictor.application.usecases.modeltrainerandcli.ModelAndCLIController;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.common.CoinRepositoryAssociator;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.historicaleventprocessor.*;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.RealtimeProcessingCoordinator;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter.CoinMarketCapCsvParser;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter.DatamartWriter;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter.GithubCsvParser;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.CsvCoordinator;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.CsvFileHandler;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.MessageReceiver;
 import com.arthead.coinstatspredictor.infrastructure.ports.*;
 import jakarta.jms.JMSException;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        if (args.length < 9) {
+            System.err.println("Use: java Main <coinmarketcap_csv> <github_csv> <datamart_csv> <modelresults_csv>" +
+                    " <port_activemq> <topic1> <topic2> <topic3> <topic4>");
+            System.exit(1);
+        }
         try {
             HistoricalEventProcessor historicalProcessor = createHistoricalProcessor(args);
             RealTimeEventProcessor realtimeProcessor = createRealtimeProcessor(args);
-            EventController controller = new EventController(historicalProcessor, realtimeProcessor);
-            controller.startApplication();
+            DatamartEventController datamartEventController = new DatamartEventController(historicalProcessor, realtimeProcessor,
+                    List.of(args[0], args[1], args[2]));
+            datamartEventController.startApplication();
+
+            ModelAndCLIController controller = new ModelAndCLIController(
+                    args[3],
+                    args[2]
+            );
+            Runtime.getRuntime().addShutdownHook(new Thread(controller::shutdown));
+            controller.start();
 
         } catch (Exception e) {
-            System.err.println("Error inicializando la aplicación: " + e.getMessage());
+            System.err.println("Error initialising the application. " + e.getMessage());
             System.exit(1);
         }
     }
@@ -31,20 +50,21 @@ public class Main {
                 new GithubInformationMerger(),
                 new CoinQuoteMerger(),
                 new CoinRepositoryAssociator(),
-                new DatamartCsvExporter(args[0])
+                new DatamartCsvWriter(args[2])
         );
     }
 
     private static RealTimeEventProcessor createRealtimeProcessor(String[] args) throws JMSException {
+        CsvCoordinator csvCoordinator = new CsvCoordinator(args[0], args[1]);
         return new RealtimeProcessingCoordinator(
-                new CsvCoordinator(args[1], args[2]),
-                new MessageReceiver(List.of(args).subList(3, args.length), args[3], new CsvCoordinator(args[1], args[2])),
+                new MessageReceiver(List.of(args[5], args[6], args[7], args[8]),
+                        args[4],csvCoordinator),
+                new CsvFileHandler(args[0]),
                 new CsvFileHandler(args[1]),
-                new CsvFileHandler(args[2]),
                 new CoinMarketCapCsvParser(),
                 new GithubCsvParser(),
                 new CoinRepositoryAssociator(),
-                new DatamartWriter(args[0])
+                new DatamartWriter(args[2])
         );
     }
 }
