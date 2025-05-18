@@ -41,11 +41,7 @@ public class DatamartEventController {
     private void startRealTimeProcessing() {
         System.out.println("\n=== STARTING REAL-TIME PROCESSING ===");
         scheduler.scheduleAtFixedRate(
-                this::processRealTime,
-                0,
-                1,
-                TimeUnit.MINUTES
-        );
+                this::processRealTime, 0, 1, TimeUnit.MINUTES);
     }
 
     private void processRealTime() {

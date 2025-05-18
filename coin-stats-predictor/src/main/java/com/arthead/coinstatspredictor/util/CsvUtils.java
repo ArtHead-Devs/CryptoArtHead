@@ -25,9 +25,13 @@ public class CsvUtils {
 
     public static void appendLine(Path path, String line) {
         try {
-            Files.write(path, (line + "\n").getBytes(), StandardOpenOption.APPEND);
+            if (!Files.exists(path.getParent())) {
+                Files.createDirectories(path.getParent());
+            }
+            Files.write(path, (line + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND
+            );
         } catch (IOException e) {
-            System.err.println("Error writing to CSV: " + e.getMessage());
+            System.err.println("Error writing to " + path + ": " + e.getMessage());
         }
     }
 }
