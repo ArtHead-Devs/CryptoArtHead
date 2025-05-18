@@ -1,0 +1,41 @@
+package com.arthead.coinstatspredictor.infrastructure.adapters.historicaleventprocessor;
+
+import com.arthead.coinstatspredictor.infrastructure.ports.DatamartExporter;
+import com.arthead.coinstatspredictor.infrastructure.ports.HistoricalEventProcessor;
+import com.arthead.coinstatspredictor.infrastructure.ports.HistoricalEventLoader;
+import com.google.gson.JsonObject;
+import java.util.List;
+import java.util.Map;
+
+public class HistoricalEventProcessingCoordinator implements HistoricalEventProcessor {
+    private final HistoricalEventLoader historicalEventReader;
+    private final GithubInformationDataMerger githubInformationMerger;
+    private final CoinQuoteDataMerger coinQuoteMerger;
+    private final CoinRepositoryAssociator githubCoinAssociator;
+    private final DatamartExporter exporter;
+
+    public HistoricalEventProcessingCoordinator(String datamartPath) {
+        this.historicalEventReader = new HistoricalEventReader();
+        this.githubInformationMerger = new GithubInformationDataMerger();
+        this.coinQuoteMerger = new CoinQuoteDataMerger();
+        this.githubCoinAssociator = new CoinRepositoryAssociator();
+        this.exporter = new DatamartCsvExporter(datamartPath);
+    }
+
+    @Override
+    public void processEventStore() {
+        try {
+            Map<String, List<JsonObject>> coinEvents = historicalEventReader.loadAndGroupHistoricalEvents("eventstore/crypto.Coins/CoinMarketCap");
+            Map<String, List<JsonObject>> quoteEvents = historicalEventReader.loadAndGroupHistoricalEvents("eventstore/crypto.Quotes/CoinMarketCap");
+            Map<String, List<JsonObject>> githubInformationEvents = historicalEventReader.loadAndGroupHistoricalEvents("eventstore/github.Information/Github");
+            Map<String, List<JsonObject>> githubRepositoryEvents = historicalEventReader.loadAndGroupHistoricalEvents("eventstore/github.Repositories/Github");
+            List<JsonObject> mergedGithub = githubInformationMerger.mergeRepositoryWithInformation(githubInformationEvents, githubRepositoryEvents);
+            List<JsonObject> mergedCrypto = coinQuoteMerger.mergeCoinWithQuotes(coinEvents, quoteEvents);
+            List<JsonObject> finalDataset = githubCoinAssociator.associateCoinsWithRepositories(mergedCrypto, mergedGithub);
+            exporter.writeDatamart(finalDataset);
+            System.out.println("Processing successfully completed");
+        } catch (Exception e) {
+            System.err.println("Error in processing: " + e.getMessage());
+        }
+    }
+}
