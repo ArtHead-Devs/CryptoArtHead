@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### ApiKey
+github-feeder/src/test/resources/githubApiKey.txt

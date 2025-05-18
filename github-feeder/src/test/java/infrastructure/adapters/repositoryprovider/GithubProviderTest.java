@@ -10,6 +10,10 @@ import com.arthead.githubfeeder.domain.Repository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 public class GithubProviderTest {
@@ -20,14 +24,13 @@ public class GithubProviderTest {
     );
 
     @Before
-    public void setUp() {
-        String apiKey = "API_KEY";
+    public void setUp() throws URISyntaxException {
+        Path filePath = Paths.get(getClass().getClassLoader().getResource("githubApiKey.txt").toURI());
+        String apiKey = filePath.toString();
         String baseUrl = "https://api.github.com/repos/";
-
         GithubConnection connection = new GithubConnection(apiKey, baseUrl);
         GithubFetcher fetcher = new GithubFetcher();
         GithubDeserializer deserializer = new GithubDeserializer();
-
         provider = new GithubProvider(connection, fetcher, deserializer);
     }
 

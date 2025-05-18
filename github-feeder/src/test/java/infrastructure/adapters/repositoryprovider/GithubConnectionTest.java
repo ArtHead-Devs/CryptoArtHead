@@ -7,18 +7,21 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class GithubConnectionTest {
-
     private GithubConnection connection;
     private final String owner = "octocat";
     private final String repo = "Hello-World";
 
     @Before
-    public void setUp() {
+    public void setUp() throws URISyntaxException {
         String baseUrl = "https://api.github.com/repos/";
-        String token = "API_KEY";
-        connection = new GithubConnection(token, baseUrl);
+        Path filePath = Paths.get(getClass().getClassLoader().getResource("githubApiKey.txt").toURI());
+        String apiKey = filePath.toString();
+        connection = new GithubConnection(apiKey, baseUrl);
     }
 
     @Test
