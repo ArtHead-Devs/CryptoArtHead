@@ -16,7 +16,7 @@ Hemos escogido la API de GitHub y la de CoinMarketCap, debido al gran auge que h
 
 ### Estructura del datamart 📊
 
-El datamart se estructura en base a tres csv, el de GitHub y el de CoinMarketCap, que se obtienen mediante a los eventos recogidos de ambas APIs a tiempo real que han sido enviados al broker, que posteriormente se unen según el nombre y la fecha para crear el tercer csv, el datamart definitivo, que cuenta con todos los eventos históricos hasta el momento.
+El datamart se estructura a partir de tres archivos CSV. Los primeros dos contienen datos en bruto procedentes de los eventos recogidos en tiempo real desde las APIs de GitHub y CoinMarketCap, los cuales son enviados al broker sin procesar. Posteriormente, estos datos se combinan en un tercer CSV, el datamart definitivo, que unifica la información según el nombre y la fecha de los eventos. Este datamart consolidado contiene todos los eventos históricos procesados hasta el momento, representando una versión integrada y depurada de las fuentes originales.
 
 ### Estructura seguida 🧩 
 
@@ -72,7 +72,7 @@ Nuestro sistema usa una arquitectura Lambda porque trabaja tanto con datos en ti
 
 ### Compilación y ejecución 📦
 
-El proyecto funciona usando el broker de mensajería ActiveMQ, utilizando dos feeders, el de CoinMarketCap y el de GitHub, que mediante intervalos de 5 minutos van alimentandose con datos, crea dos csv, que se unen cada 5 minutos formando el datamart, el cual procesamos mediante distintos modelos de aprendizaje para interpretar datos de interés que se les mostrará al usuario mediante la CLI.
+El proyecto funciona siguiendo un orden de ejecución definido, utilizando el broker de mensajería ActiveMQ. Primero se lanzan los dos feeders: el de CoinMarketCap y el de GitHub, que se alimentan de datos en intervalos de 5 minutos. Estos datos, aún en bruto, se almacenan como dos CSV independientes. Cada 5 minutos, ambos archivos se unen por nombre y fecha para formar un tercer CSV: el datamart definitivo, que recoge todos los eventos históricos procesados hasta el momento. A partir de este datamart, se aplican distintos modelos de aprendizaje automático que permiten interpretar los datos y ofrecer resultados de interés al usuario, quien puede consultarlos mediante la interfaz de línea de comandos (CLI).
 
 - CoinMarketFeeder: depende si lo tratamos con bases de datos, el primer argumento es la API key y el segundo es la ruta donde quieres que se cree la base de datos. Si lo tratamos con ActiveMQ ponemos el puerto.
   
