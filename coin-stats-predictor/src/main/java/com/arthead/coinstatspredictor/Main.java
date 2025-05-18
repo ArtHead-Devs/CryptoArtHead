@@ -14,11 +14,11 @@ import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator
 import com.arthead.coinstatspredictor.infrastructure.ports.*;
 import jakarta.jms.JMSException;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        System.out.println("Initializing process. Please wait...");
         if (args.length < 9) {
             System.err.println("Use: java Main <coinmarketcap_csv> <github_csv> <datamart_csv> <modelresults_csv>" +
                     " <port_activemq> <topic1> <topic2> <topic3> <topic4>");

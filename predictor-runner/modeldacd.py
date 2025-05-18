@@ -79,4 +79,4 @@ for crypto in cryptos:
             std_pred = np.std(y_pred)
             var_pred = np.var(y_pred)
 
-            print(f"{crypto},{target},{name},{r2:.4f},{mse:.4f},{mae:.4f},{mean_pred:.4f},{std_pred:.4f},{var_pred:.4f}")
+            print(f"{crypto},{target},{name},{r2:.4f},{mse:.4f},{mae:.4f},{mean_pred},{std_pred:.4f},{var_pred:.4f}")

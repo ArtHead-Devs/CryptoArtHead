@@ -1,69 +1,59 @@
 package com.arthead.coinstatspredictor.infrastructure.adapters.userinterface;
 
-import java.util.*;
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class CLI {
-
     private final String csvPath;
     private final CSVLoader loader = new CSVLoader();
     private final Scanner scanner = new Scanner(System.in);
-
 
     public CLI(String csvPath) {
         this.csvPath = csvPath;
     }
 
     public void run() {
+        waitForCSV();
         try {
             loader.loadCSV(csvPath);
+            startAutoReloadThread();
         } catch (IOException e) {
             System.err.println("Error reading CSV: " + e.getMessage());
             return;
         }
         BannerPrinter.printBanner();
-        menuLoop();
+        new CLIHandler(loader, scanner).startMenuLoop();
     }
 
-    private void menuLoop() {
-        boolean skipBlank = false;
-            while (true) {
-                if (skipBlank && scanner.hasNextLine()) {
-                    scanner.nextLine();
-                    skipBlank = false;
-                }
-
-            System.out.println("\nOptions:");
-            System.out.println("  1. Show help (list coins, targets and models)");
-            System.out.println("  2. Search results");
-            System.out.println("  0. Exit");
-            System.out.print("Select an option: ");
-
-            String option = scanner.nextLine().trim();
-            switch (option) {
-                case "1" -> printHelp();
-                case "2" -> {
-                    TablePrinter.filterAndPrint(scanner, loader);
-                    skipBlank = true;
-                }
-                case "0" -> {
-                    System.out.println("Exiting...");
-                    return;
-                }
-                default -> System.out.println("Invalid option.");
+    private void waitForCSV() {
+        File file = new File(csvPath);
+        while (!file.exists()) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
             }
         }
     }
 
-    private void printHelp() {
-        System.out.println("\n--- Help: possible values ---");
-        for (String column : List.of("Coin", "Target", "Model")) {
-            System.out.println("\nAvailable " + column + "s:");
-            int idx = loader.getColumnIndex(column);
-            loader.getRows().stream()
-                    .map(row -> row[idx])
-                    .distinct()
-                    .forEach(value -> System.out.println(" - " + value));
-        }
+    private void startAutoReloadThread() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(60000);
+                while (true) {
+                    File f = new File(csvPath);
+                    if (f.exists()) {
+                        loader.loadCSV(csvPath);
+                    }
+                    Thread.sleep(60000);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (IOException e) {
+                System.err.println("Error actualizando CSV: " + e.getMessage());
+            }
+        }).start();
     }
 }

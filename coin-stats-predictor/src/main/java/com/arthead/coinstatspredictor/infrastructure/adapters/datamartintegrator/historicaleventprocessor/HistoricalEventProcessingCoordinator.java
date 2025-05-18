@@ -37,7 +37,6 @@ public class HistoricalEventProcessingCoordinator implements HistoricalEventProc
             List<JsonObject> mergedCrypto = coinQuoteMerger.mergeCoinWithQuotes(coinEvents, quoteEvents);
             List<JsonObject> finalDataset = githubCoinAssociator.associateCoinsWithRepositories(mergedCrypto, mergedGithub);
             exporter.writeDatamart(finalDataset);
-            System.out.println("Processing successfully completed");
         } catch (Exception e) {
             System.err.println("Error in processing: " + e.getMessage());
         }

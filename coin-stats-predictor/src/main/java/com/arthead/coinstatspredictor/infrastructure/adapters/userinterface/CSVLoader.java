@@ -8,6 +8,7 @@ public class CSVLoader {
     private String[] headers;
 
     public void loadCSV(String path) throws IOException {
+        rows.clear();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             headers = br.readLine().split(",");
             String line;

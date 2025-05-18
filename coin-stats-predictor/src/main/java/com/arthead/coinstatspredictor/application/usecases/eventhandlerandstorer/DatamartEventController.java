@@ -30,7 +30,6 @@ public class DatamartEventController {
     }
 
     private void runHistoricalProcessing() {
-        System.out.println("=== STARTING HISTORICAL PROCESSING ===");
         try {
             historicalProcessor.processHistoricalEvents();
         } catch (Exception e) {
@@ -39,7 +38,6 @@ public class DatamartEventController {
     }
 
     private void startRealTimeProcessing() {
-        System.out.println("\n=== STARTING REAL-TIME PROCESSING ===");
         scheduler.scheduleAtFixedRate(
                 this::processRealTime, 0, 1, TimeUnit.MINUTES);
     }

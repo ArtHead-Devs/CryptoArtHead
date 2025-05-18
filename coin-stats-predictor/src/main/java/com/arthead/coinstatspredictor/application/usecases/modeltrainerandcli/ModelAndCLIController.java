@@ -2,6 +2,9 @@ package com.arthead.coinstatspredictor.application.usecases.modeltrainerandcli;
 
 import com.arthead.coinstatspredictor.infrastructure.adapters.userinterface.CLI;
 import com.arthead.coinstatspredictor.infrastructure.adapters.userinterface.PythonReader;
+import com.arthead.coinstatspredictor.util.FileCleanupUtil;
+
+import java.util.List;
 import java.util.concurrent.*;
 
 public class ModelAndCLIController {
@@ -21,10 +24,10 @@ public class ModelAndCLIController {
 
     private void trainModel() {
         try {
+            FileCleanupUtil.deleteFiles(List.of(csvModelResultPath));
             new PythonReader(csvModelResultPath, datamartPath).runModel();
-            System.out.println("\n[System] Model updated successfully at " + java.time.LocalTime.now());
         } catch (Exception e) {
-            System.err.println("\n[Error] Model training failed: " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -35,7 +38,6 @@ public class ModelAndCLIController {
     }
 
     public void shutdown() {
-        running = false;
         scheduler.shutdown();
         try {
             if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {

@@ -52,7 +52,6 @@ public class RealtimeProcessingCoordinator implements RealTimeEventProcessor {
             List<JsonObject> mergedData = datamartMerger.associateCoinsWithRepositories(cryptoData, githubData);
             if (!mergedData.isEmpty()) {
                 datamartWriter.writeDatamart(mergedData);
-                System.out.println("Updated datamart with " + mergedData.size() + " new entries");
             }
         } catch (IOException e) {
             System.err.println("Error processing CSV data: " + e.getMessage());

@@ -55,6 +55,7 @@ public class TablePrinter {
 
     private static void waitForEnter(Scanner scanner) {
         System.out.print("\n... Press Enter to return to menu ...\n");
+        scanner.nextLine();
     }
 
     private static Set<String> askAndValidate(Scanner scanner, String column, CSVLoader loader) {

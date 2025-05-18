@@ -32,7 +32,6 @@ public class DatamartCsvWriter implements DatamartWriter {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Datamart exported successfully to " + outputCsvPath + " with " + data.size() + " records.");
     }
 
     private List<String> generateCsvLines(List<JsonObject> data) {
