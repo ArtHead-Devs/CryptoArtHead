@@ -50,7 +50,7 @@ public class DatamartCsvExporter implements DatamartExporter {
     }
 
     private String buildCsvDataLine(JsonObject item) {
-        JsonObject coin = item.getAsJsonObject("crypto");
+        JsonObject coin = item.getAsJsonObject("coin");
         JsonObject github = item.getAsJsonObject("github");
         return String.join(",",
                 EventUtils.getSafeValue(coin, "name"),

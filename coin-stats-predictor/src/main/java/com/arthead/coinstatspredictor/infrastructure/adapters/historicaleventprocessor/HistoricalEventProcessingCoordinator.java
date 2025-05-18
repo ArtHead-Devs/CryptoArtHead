@@ -1,5 +1,6 @@
 package com.arthead.coinstatspredictor.infrastructure.adapters.historicaleventprocessor;
 
+import com.arthead.coinstatspredictor.infrastructure.adapters.mergers.CoinRepositoryAssociator;
 import com.arthead.coinstatspredictor.infrastructure.ports.DatamartExporter;
 import com.arthead.coinstatspredictor.infrastructure.ports.HistoricalEventProcessor;
 import com.arthead.coinstatspredictor.infrastructure.ports.HistoricalEventLoader;
