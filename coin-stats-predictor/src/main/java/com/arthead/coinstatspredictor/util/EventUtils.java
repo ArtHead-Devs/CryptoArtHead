@@ -47,12 +47,4 @@ public class EventUtils {
         }
         return obj.get(key).getAsString();
     }
-
-
-
-    public static String sanitizeRawValue(String rawValue) {
-        return rawValue != null
-                ? rawValue.replace(",", "").replace("\"", "")
-                : "";
-    }
 }

@@ -1,4 +1,4 @@
-package com.arthead.coinstatspredictor.infrastructure.adapters.historicaleventprocessor;
+package com.arthead.coinstatspredictor.infrastructure.adapters.common;
 
 import com.arthead.coinstatspredictor.util.EventUtils;
 import com.google.gson.JsonObject;
@@ -54,7 +54,7 @@ public class CoinRepositoryAssociator {
 
     private JsonObject createCoinRepositoryAssociation(JsonObject coin, JsonObject repository) {
         JsonObject association = new JsonObject();
-        association.add("crypto", coin);
+        association.add("coin", coin);
         association.add("github", repository);
         return association;
     }

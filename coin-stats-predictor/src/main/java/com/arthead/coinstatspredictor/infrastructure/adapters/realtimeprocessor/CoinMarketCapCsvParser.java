@@ -1,11 +1,12 @@
 package com.arthead.coinstatspredictor.infrastructure.adapters.realtimeprocessor;
 
+import com.arthead.coinstatspredictor.infrastructure.ports.CsvParser;
 import com.arthead.coinstatspredictor.util.CsvUtils;
 import com.google.gson.JsonObject;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CoinMarketCapCsvParser {
+public class CoinMarketCapCsvParser implements CsvParser {
     private static final int expectedColumns = 21;
     private static final String csvSplitRegex = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
 
