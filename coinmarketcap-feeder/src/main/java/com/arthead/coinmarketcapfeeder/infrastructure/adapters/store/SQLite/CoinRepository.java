@@ -23,7 +23,7 @@ public class CoinRepository {
                     insertNewCoin(connection, coin);
                 }
             } catch (SQLException e) {
-                System.err.println("Error al procesar moneda. " + e);
+                System.err.println("Error processing coin. " + e);
             }
         }
     }

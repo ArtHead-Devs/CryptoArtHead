@@ -23,7 +23,7 @@ public class CoinMarketCapProvider implements CoinProvider {
             String json = fetcher.fetcher(httpConnection);
             return deserializer.deserialize(json);
         } catch (Exception e) {
-            throw new RuntimeException("Error al obtener las monedas. ", e);
+            throw new RuntimeException("Error in obtaining coins. ", e);
         }
     }
 }

@@ -50,7 +50,7 @@ public class TableCreator {
             createQuotesStatement.execute();
 
         } catch (Exception e) {
-            System.err.println("Error creando las tablas de la base de datos. " + e);
+            System.err.println("Error creating the database tables. " + e);
         }
     }
 }

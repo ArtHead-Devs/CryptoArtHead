@@ -15,6 +15,12 @@ public class JsonHelper {
                 : null;
     }
 
+    public static Long getLong(JsonObject obj, String key) {
+        return obj.has(key) && !obj.get(key).isJsonNull()
+                ? obj.get(key).getAsLong()
+                : null;
+    }
+
     public static Double getDouble(JsonObject obj, String key) {
         return obj.has(key) && !obj.get(key).isJsonNull()
                 ? obj.get(key).getAsDouble()

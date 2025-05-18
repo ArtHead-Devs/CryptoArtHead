@@ -5,9 +5,6 @@ import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
 import com.arthead.coinmarketcapfeeder.domain.Coin;
 import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapData;
 import com.arthead.coinmarketcapfeeder.domain.Quote;
-
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -17,28 +14,26 @@ public class Controller {
     private final CoinProvider provider;
     private final CoinStore store;
     private final ScheduledExecutorService scheduler;
-    private final DateTimeFormatter formatHora;
 
     public Controller(CoinProvider provider, CoinStore store) {
         this.provider = provider;
         this.store = store;
         this.scheduler = Executors.newScheduledThreadPool(3);
-        this.formatHora = DateTimeFormatter.ofPattern("HH:mm:ss");
     }
 
     public void execute() {
         Runnable task = this::processData;
         scheduler.scheduleAtFixedRate(task, 0, 5, TimeUnit.MINUTES);
-        System.out.println("Controlador iniciado. Datos se actualizarán cada 5 minutos.");
+        System.out.println("Controller started. Data will be updated every 5 minutes.");
     }
 
     private void processData() {
-        System.out.println("\n[" + LocalTime.now().format(formatHora) + "] Iniciando ciclo de actualización");
+        System.out.println("\nStarting update cycle");
 
         CoinMarketCapData data = provider.provide();
 
         if (data == null || data.getCoins().isEmpty()) {
-            System.out.println("No se recibieron datos de la API");
+            System.out.println("No data received from API");
             return;
         }
 
@@ -47,14 +42,18 @@ public class Controller {
 
         store.save(coins, quotes);
 
-        System.out.println("Datos obtenidos (" + coins.size() + " monedas):");
+        printControllerInformation(coins, quotes);
+    }
+
+    private void printControllerInformation(List<Coin> coins, List<Quote> quotes) {
+        System.out.println("Data obtained (" + coins.size() + " coins):");
         for (Coin coin : coins) {
             for (Quote quote : quotes) {
                 if (quote.getCoin().equals(coin.getName())) {
-                    System.out.println("- " + coin.getName() + " (" + quote.getCurrency() + ") | Actualizada");
+                    System.out.println("- " + coin.getName() + " (" + quote.getCurrency() + ") | Updated");
                 }
             }
         }
-        System.out.println("Próxima actualización en 5 minutos");
+        System.out.println("Next update in 5 minutes");
     }
 }

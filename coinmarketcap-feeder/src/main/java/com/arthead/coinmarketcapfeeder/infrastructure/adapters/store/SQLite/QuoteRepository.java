@@ -26,7 +26,7 @@ public class QuoteRepository {
                     insertNewQuote(connection, quote);
                 }
             } catch (SQLException e) {
-                System.err.println("Error al procesar cotización. " + e);
+                System.err.println("Error processing quotation. " + e);
             }
         }
     }

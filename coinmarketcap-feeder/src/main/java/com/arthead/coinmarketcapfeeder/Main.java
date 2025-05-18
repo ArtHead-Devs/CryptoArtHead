@@ -14,7 +14,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.err.println("Error: Uso -> java Main <API_KEY> <DB_PATH>");
+            System.err.println("Error: Usage -> java Main <API_KEY> <DB_PATH/ACTIVEMQ_LINK>");
             return;
         }
 
@@ -37,15 +37,18 @@ public class Main {
         CoinStore store = new ActiveMQStore(args[1]);
         Controller controller = new Controller(provider, store);
 
-        System.out.println("=== Sistema de Actualización Cripto ===");
-        System.out.println("Monedas monitorizadas:");
+        printSystemInformation(queries);
+
+        controller.execute();
+    }
+
+    private static void printSystemInformation(Map<String, String> queries) {
+        System.out.println("=== Crypto Update System ===");
+        System.out.println("Monitored coins:");
         String[] slugs = queries.get("slug").split(",");
         for (String slug : slugs) {
             System.out.println(" - " + slug);
         }
-        System.out.println("Base de datos: " + args[1]);
-        System.out.println("Intervalo actualizaciones: 5 minutos");
-
-        controller.execute();
+        System.out.println("Update interval: 5 minutes");
     }
 }

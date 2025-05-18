@@ -34,9 +34,9 @@ public class CoinMarketCapDeserializer {
     private Coin parseCoin(JsonObject coinData) {
         String name = JsonHelper.getString(coinData, "name");
         String symbol = JsonHelper.getString(coinData, "symbol");
-        Integer maxSupply = JsonHelper.getInt(coinData, "max_supply");
-        Integer circulatingSupply = JsonHelper.getInt(coinData, "circulating_supply");
-        Integer totalSupply = JsonHelper.getInt(coinData, "total_supply");
+        Long maxSupply = JsonHelper.getLong(coinData, "max_supply");
+        Long circulatingSupply = JsonHelper.getLong(coinData, "circulating_supply");
+        Long totalSupply = JsonHelper.getLong(coinData, "total_supply");
         Boolean isActive = JsonHelper.getBoolean(JsonHelper.getInt(coinData, "is_active"));
         Boolean isFiduciary = JsonHelper.getBoolean(JsonHelper.getInt(coinData, "is_fiat"));
         Integer ranking = JsonHelper.getInt(coinData, "cmc_rank");
@@ -74,7 +74,7 @@ public class CoinMarketCapDeserializer {
         Double percentChange30d = JsonHelper.getDouble(quoteObject, "percent_change_30d");
         Double percentChange60d = JsonHelper.getDouble(quoteObject, "percent_change_60d");
         Double percentChange90d = JsonHelper.getDouble(quoteObject, "percent_change_90d");
-        Double marketCap = JsonHelper.getDouble(quoteObject, "market_cap");
+        Long marketCap = JsonHelper.getLong(quoteObject, "market_cap");
         String ts = Instant.now().toString();
 
         return new Quote(coinName, currency, price, volumeIn24h, volumeChange24h, percentChange1h, percentChange24h,

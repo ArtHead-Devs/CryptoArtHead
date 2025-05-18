@@ -33,7 +33,7 @@ public class CoinRepositoryTest {
     @Test
     public void testInsertCoins() throws SQLException {
         List<Coin> coins = new ArrayList<>();
-        Coin coin = new Coin("Bitcoin", "BTC", 21000000, 19000000,20000000,
+        Coin coin = new Coin("Bitcoin", "BTC", 21000000L, 19000000L,20000000L,
                 true, false, 1, Instant.now().toString());
         coins.add(coin);
 
@@ -46,7 +46,7 @@ public class CoinRepositoryTest {
                     Assert.assertTrue(result.next());
                     Assert.assertEquals("BTC", result.getString("symbol"));
                     Assert.assertEquals("Bitcoin", result.getString("name"));
-                    Assert.assertEquals(21000000, result.getInt("max_supply"));
+                    Assert.assertEquals(21000000L, result.getInt("max_supply"));
                 }
 
             }

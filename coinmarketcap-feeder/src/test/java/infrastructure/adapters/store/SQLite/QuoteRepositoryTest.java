@@ -39,7 +39,7 @@ public class QuoteRepositoryTest {
         List<Quote> quotes = new ArrayList<>();
         Quote quote = new Quote("Bitcoin", "USD", 50000.0, 1000000.0, 5.0,
                 0.5, 1.0, -2.0, 10.0, 20.0,
-                30000000.0, 5000.0, Instant.now().toString());
+                30000000.0, 5000L, Instant.now().toString());
         quotes.add(quote);
 
         quoteRepository.insertQuotes(quotes);
@@ -54,7 +54,7 @@ public class QuoteRepositoryTest {
             try (ResultSet result = preparedStatement.executeQuery()) {
                 assertTrue("Debería existir el registro", result.next());
 
-                assertEquals(50000.0, result.getDouble("price"), 0.001);
+                assertEquals(50000L, result.getDouble("price"), 0.001);
                 assertEquals(1000000.0, result.getDouble("volume_24h"), 0.001);
                 assertEquals(5.0, result.getDouble("volume_change_24h"), 0.001);
                 assertEquals(0.5, result.getDouble("percent_change_1h"), 0.001);
