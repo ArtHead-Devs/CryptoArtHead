@@ -1,8 +1,9 @@
 package com.arthead.githubfeeder.application.usecases.collectorandstorer;
 
+import com.arthead.githubfeeder.domain.GithubResponse;
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubProvider;
 import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
-import com.arthead.githubfeeder.domain.GithubResponse;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;

@@ -1,6 +1,7 @@
 package com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite;
 
 import com.arthead.githubfeeder.domain.Information;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

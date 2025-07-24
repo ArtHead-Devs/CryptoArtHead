@@ -9,9 +9,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class QuoteRepository {
-    private final SQLiteConnection dbManager;
+    private final com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection dbManager;
 
-    public QuoteRepository(SQLiteConnection dbManager) {
+    public QuoteRepository(com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection dbManager) {
         this.dbManager = dbManager;
     }
 

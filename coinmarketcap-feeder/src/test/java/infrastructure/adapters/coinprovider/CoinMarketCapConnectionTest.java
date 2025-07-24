@@ -2,9 +2,9 @@ package infrastructure.adapters.coinprovider;
 
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapConnection;
 import org.jsoup.Connection;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 
 import java.io.IOException;
 import java.util.HashMap;

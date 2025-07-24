@@ -2,6 +2,7 @@ package com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider;
 
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
+
 import java.io.IOException;
 
 public class GithubFetcher {

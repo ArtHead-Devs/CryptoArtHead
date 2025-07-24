@@ -6,6 +6,7 @@ import com.arthead.githubfeeder.domain.Repository;
 import com.arthead.githubfeeder.util.JsonHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
 import java.time.Instant;
 
 public class GithubDeserializer {

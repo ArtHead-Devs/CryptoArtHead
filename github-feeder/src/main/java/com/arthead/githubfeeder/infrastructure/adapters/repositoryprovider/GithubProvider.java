@@ -1,7 +1,7 @@
 package com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider;
 
-import com.arthead.githubfeeder.infrastructure.ports.RepositoryProvider;
 import com.arthead.githubfeeder.domain.GithubResponse;
+import com.arthead.githubfeeder.infrastructure.ports.RepositoryProvider;
 import org.jsoup.Connection;
 
 import java.util.Map;

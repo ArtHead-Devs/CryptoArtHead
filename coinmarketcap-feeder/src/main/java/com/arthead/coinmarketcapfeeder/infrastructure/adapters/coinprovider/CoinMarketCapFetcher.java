@@ -2,6 +2,7 @@ package com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider;
 
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
+
 import java.io.IOException;
 
 public class CoinMarketCapFetcher {

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CoinRepository {
-    private final SQLiteConnection dbManager;
+    private final com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection dbManager;
 
     public CoinRepository(SQLiteConnection dbManager) {
         this.dbManager = dbManager;

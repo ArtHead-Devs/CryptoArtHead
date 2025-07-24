@@ -1,9 +1,9 @@
 package infrastructure.adapters.store.SQLite;
 
+import com.arthead.coinmarketcapfeeder.domain.Quote;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.QuoteRepository;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.TableCreator;
-import com.arthead.coinmarketcapfeeder.domain.Quote;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

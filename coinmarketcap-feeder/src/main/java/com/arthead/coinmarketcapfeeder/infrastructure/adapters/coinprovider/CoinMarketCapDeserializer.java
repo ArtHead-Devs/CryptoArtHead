@@ -7,8 +7,11 @@ import com.arthead.coinmarketcapfeeder.util.JsonHelper;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class CoinMarketCapDeserializer {
     Gson gson = new Gson();
