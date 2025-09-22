@@ -37,5 +37,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
-### ApiKey
+### ApiKey ###
 github-feeder/src/test/resources/githubApiKey.txt
+
+### Virtual Enviroment
+crypto_venv/
