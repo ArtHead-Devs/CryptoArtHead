@@ -1,10 +1,12 @@
 package com.arthead.coinstatspredictor.infrastructure.adapters.userinterface;
 
+import com.arthead.coinstatspredictor.infrastructure.ports.UserInterface;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class CLI {
+public class CLI implements UserInterface {
     private final String csvPath;
     private final CSVLoader loader = new CSVLoader();
     private final Scanner scanner = new Scanner(System.in);
@@ -13,6 +15,7 @@ public class CLI {
         this.csvPath = csvPath;
     }
 
+    @Override
     public void run() {
         waitForCSV();
         try {
