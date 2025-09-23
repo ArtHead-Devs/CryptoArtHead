@@ -6,10 +6,10 @@ import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CsvCoordinator {
+public class EventCsvDistributor {
     private final Map<String, CsvWriter> writers = new HashMap<>();
 
-    public CsvCoordinator(String coinCsvPath, String githubCsvPath) {
+    public EventCsvDistributor(String coinCsvPath, String githubCsvPath) {
         registerWriter("CoinMarketCap", new CoinMarketCapCsvWriter(coinCsvPath));
         registerWriter("Github", new GithubCsvWriter(githubCsvPath));
     }
