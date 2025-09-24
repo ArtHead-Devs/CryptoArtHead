@@ -1,22 +1,6 @@
-try:
-    import sklearn
-except ImportError:
-    import sys, subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "scikit-learn"])
-
-try:
-    import pandas as pd
-except ImportError:
-    import sys, subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas"])
-
-try:
-    import numpy as np
-except ImportError:
-    import sys, subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "numpy"])
-
 import sys
+import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
