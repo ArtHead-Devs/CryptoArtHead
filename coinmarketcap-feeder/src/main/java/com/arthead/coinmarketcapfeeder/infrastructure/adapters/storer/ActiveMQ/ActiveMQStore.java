@@ -1,15 +1,15 @@
 package com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.ActiveMQ;
 
+import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
 import com.arthead.coinmarketcapfeeder.domain.Coin;
 import com.arthead.coinmarketcapfeeder.domain.Quote;
-import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
 import jakarta.jms.JMSException;
 
 import java.util.List;
 
 public class ActiveMQStore implements CoinStore{
-    private final com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.ActiveMQ.CoinFeeder coinFeeder;
-    private final com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.ActiveMQ.QuoteFeeder quoteFeeder;
+    private final CoinFeeder coinFeeder;
+    private final QuoteFeeder quoteFeeder;
 
     public ActiveMQStore(String url) {
         this.coinFeeder = new CoinFeeder(url);

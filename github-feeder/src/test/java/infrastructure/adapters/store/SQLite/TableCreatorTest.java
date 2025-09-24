@@ -1,7 +1,11 @@
 package infrastructure.adapters.store.SQLite;
 
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.TableCreator;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.TableCreator;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,13 +13,9 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Test;
-
 
 public class TableCreatorTest {
-    private final String databaseName = "cointest.db";
+    private final String databaseName = "repositorytest.db";
 
     @Test
     public void testCreateTables() throws SQLException {
@@ -23,13 +23,13 @@ public class TableCreatorTest {
         TableCreator.createTables(connection);
 
         try (Connection dbConnection = connection.getConnection();
-             ResultSet rs = dbConnection.getMetaData().getTables(null, null, "coins", null)) {
-            Assert.assertTrue(rs.next());
+             ResultSet rs1 = dbConnection.getMetaData().getTables(null, null, "repositories", null)) {
+            Assert.assertTrue(rs1.next());
         }
 
         try (Connection dbConnection = connection.getConnection();
-             ResultSet rs = dbConnection.getMetaData().getTables(null, null, "quotes", null)) {
-            Assert.assertTrue(rs.next());
+             ResultSet rs2 = dbConnection.getMetaData().getTables(null, null, "information", null)) {
+            Assert.assertTrue(rs2.next());
         }
     }
 

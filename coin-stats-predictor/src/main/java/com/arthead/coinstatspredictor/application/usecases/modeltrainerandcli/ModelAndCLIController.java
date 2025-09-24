@@ -2,6 +2,8 @@ package com.arthead.coinstatspredictor.application.usecases.modeltrainerandcli;
 
 import com.arthead.coinstatspredictor.infrastructure.adapters.userinterface.CLI;
 import com.arthead.coinstatspredictor.infrastructure.adapters.userinterface.PythonReader;
+import com.arthead.coinstatspredictor.infrastructure.ports.ExternalModelRunner;
+import com.arthead.coinstatspredictor.infrastructure.ports.UserInterface;
 import com.arthead.coinstatspredictor.util.FileCleanupUtil;
 
 import java.util.List;
@@ -19,20 +21,21 @@ public class ModelAndCLIController {
 
     public void start() {
         scheduler.scheduleAtFixedRate(this::trainModel, 0, 1, TimeUnit.MINUTES);
-        launchCLI();
+        launchUserInterface();
     }
 
     private void trainModel() {
         try {
             FileCleanupUtil.deleteFiles(List.of(csvModelResultPath));
-            new PythonReader(csvModelResultPath, datamartPath).runModel();
+            ExternalModelRunner pythonReader = new PythonReader(csvModelResultPath, datamartPath);
+            pythonReader.runModel();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void launchCLI() {
-        CLI cli = new CLI(csvModelResultPath);
+    private void launchUserInterface() {
+        UserInterface cli = new CLI(csvModelResultPath);
         cli.run();
         shutdown();
     }

@@ -1,22 +1,18 @@
 package infrastructure.adapters.store.SQLite;
 
-import com.arthead.coinmarketcapfeeder.domain.Coin;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.CoinRepository;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.TableCreator;
-import org.junit.After;
-import org.junit.Assert;
+import com.arthead.coinmarketcapfeeder.domain.Coin;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
-
 import java.io.IOException;
+import java.sql.*;
+import org.junit.Assert;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;

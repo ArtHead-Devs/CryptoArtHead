@@ -1,8 +1,8 @@
 package com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite;
 
+import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
 import com.arthead.githubfeeder.domain.Information;
 import com.arthead.githubfeeder.domain.Repository;
-import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
 
 public class SQLiteStore implements GithubRepositoryStore {
     private final GithubRepository githubRepo;

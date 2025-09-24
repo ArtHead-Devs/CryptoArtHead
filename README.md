@@ -1,31 +1,134 @@
-# CryptoArthead 🪙
+<div align="center">
 
-### Descripción del proyecto 📜
+# 🪙 CryptoArthead
 
-El proyecto consiste en un analizador de AltCoins que estudia distintos parámetros de la moneda basándose en su repositorio de GitHub, con el objetivo de proporcionar a los inversores información detallada y relevante que les permita tomar decisiones más informadas antes de realizar cualquier acción. Además de los datos de GitHub, el sistema utiliza información proveniente de CoinMarketCap, permitiendo obtener datos de calidad de cada moneda. El resultado es un datamart consolidado y actualizado que permite ejecutar modelos predictivos sobre el comportamiento de las criptomonedas emergentes.
+### *Plataforma Avanzada de Análisis de AltCoins*
 
-### Elección de APIs  🔌 
+[![Java](https://img.shields.io/badge/Java-21+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)](https://maven.apache.org/)
+[![ActiveMQ](https://img.shields.io/badge/ActiveMQ-FF6000?style=for-the-badge&logo=apache&logoColor=white)](https://activemq.apache.org/)
+[![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)](https://sqlite.org/)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org/)
 
-Hemos escogido la API de GitHub y la de CoinMarketCap, debido al gran auge que han tenido las criptomonedas en los últimos años, ya que es un tema de interés para muchos potenciales usuarios, basandolo en GitHub para relacionar los datos, ya que es otra herramienta mundialmente conocida y usada por la mayoría de gente que se dedica a la programación desde gente amateur o estudiantes hasta profesionales y empresas, como en este caso, las de las AltCoins elegidas.
+*Empoderando a inversores de criptomonedas con insights impulsados por IA a través del análisis integral de repositorios GitHub e integración de datos de mercado en tiempo real.*
 
-### Requisitos 🔧
+</div>
 
-- Instalar el broker de mensajería ActiveMQ e iniciarlo.
-- Tener el JDK versión 21.
-- Tener Python 3.11.9 en adelante y configurado en las variables de entorno.
+## 📋 Tabla de Contenidos
 
-### Estructura del datamart 📊
+- [📜 Descripción](#-descripción)
+- [✨ Características](#-características)
+- [🔌 APIs Utilizadas](#-apis-utilizadas)
+- [🏗️ Arquitectura](#️-arquitectura)
+- [💾 Estructura del Datamart](#-estructura-del-datamart)
+- [📐 Diagramas de Clases](#-diagramas-de-clases)
+- [🔧 Requisitos](#-requisitos)
+- [🚀 Instalación y Uso](#-instalación-y-uso)
+- [🧪 Validación y Tests](#-validación-y-tests)
+- [👥 Autores](#-autores)
+- [📄 Licencia](#-licencia)
 
-El datamart se estructura a partir de tres archivos CSV. Los primeros dos contienen datos en bruto procedentes de los eventos recogidos en tiempo real desde las APIs de GitHub y CoinMarketCap, los cuales son enviados al broker sin procesar. Posteriormente, estos datos se combinan en un tercer CSV, el datamart definitivo, que unifica la información según el nombre y la fecha de los eventos. Este datamart consolidado contiene todos los eventos históricos procesados hasta el momento, representando una versión integrada y depurada de las fuentes originales.
 
-### Estructura seguida 🧩 
+## 📜 Descripción
 
-El proyecto ha seguido una arquitectura lambda, donde en cada módulo hemos hecho una clean arquitecture, en este caso una arquitectura hexagonal, con el objetivo de mantener bien separada la lógica de negocio del resto de componentes del sistema, como bases de datos, servicios externos o interfaces de usuario. 
+CryptoArthead es un analizador de AltCoins que estudia distintos parámetros de las criptomonedas basándose en su repositorio de GitHub. El objetivo es proporcionar a los inversores información detallada y relevante que les permita tomar decisiones más informadas antes de invertir.
 
-En el proyecto hemos identificado dos principios: 
-- Single Responsability Principle: Lo hemos usado para mantener el código lo más modularizado posible, asignando a cada clase o componente una única responsabilidad. Esto facilita la lectura, el mantenimiento y la reutilización del código.
-- Open/Close Principle: lo usamos para que el sistema sea fácil de ampliar sin tener que modificar el código ya existente, lo que reduce errores y facilita el mantenimiento a largo plazo, se puede observar al definir puertos para la mensajería (ActiveMQ) y el almacenamiento (SQLite), ya que el núcleo del sistema no depende de detalles concretos.
-En nuestro código, este principio se evidencia en los métodos main de los feeders: si sustituimos ActiveMQStore por SQLiteStore, simplemente se modifica la construcción del objeto para utilizar una base de datos en lugar de mensajería, sin alterar la lógica del programa, ya que ambas clases implementan la misma interfaz GithubRepositoryStore. 
+Además de los datos de GitHub, el sistema utiliza información proveniente de CoinMarketCap, permitiendo obtener datos de calidad de cada moneda. El resultado es un datamart consolidado y actualizado que permite ejecutar modelos predictivos sobre el comportamiento de las criptomonedas emergentes.
+
+## ✨ Características
+
+CryptoArthead ofrece un conjunto completo de características diseñadas para proporcionar análisis profundos y precisos de criptomonedas:
+
+- **🔍 Recolección de Datos en Tiempo Real**: Extracción automatizada de datos desde las APIs de GitHub y CoinMarketCap
+- **🧠 Análisis en Tiempo Real** de repositorios GitHub de criptomonedas emergentes
+- **📊 Integración de Datos de Mercado** directamente desde CoinMarketCap
+- **🏗️ Arquitectura Lambda** para manejar tanto procesamiento en tiempo real como por lotes
+- **📈 Análisis Predictivo**: Modelos de machine learning para predicción de tendencias de criptomonedas
+- **🔄 Procesamiento Basado en Eventos** mediante cola de mensajes ActiveMQ
+- **🖥️ Interfaz CLI Interactiva**: Interfaz de línea de comandos amigable para exploración de datos
+- **⏱️ Actualizaciones Periódicas** cada 5 minutos para mantener datos recientes
+- **📋 Pruebas Exhaustivas**: Amplia cobertura de pruebas con JUnit
+
+
+## 🔌 APIs Utilizadas
+
+Hemos escogido la API de GitHub y la de CoinMarketCap por el gran auge de las criptomonedas en los últimos años, siendo un tema de interés para muchos potenciales usuarios.
+
+- **📊 GitHub API**: Nos permite analizar la actividad de desarrollo, la calidad del código y la comunidad de cada proyecto.
+- **💹 CoinMarketCap API**: Proporciona datos de mercado como precio, capitalización y volumen de trading.
+
+La combinación de ambas fuentes permite correlacionar la actividad de desarrollo con el comportamiento del mercado.
+
+## 🏗️ Arquitectura
+
+El proyecto implementa una **Arquitectura Lambda**, donde cada módulo utiliza una **Arquitectura Hexagonal** (clean architecture). Esta combinación permite mantener bien separada la lógica de negocio de los componentes de infraestructura, facilitando mantenimiento y extensión. El siguiente diagrama muestra el flujo de datos a través del sistema:
+
+```mermaid
+flowchart LR
+    %% Define styles
+    classDef producer fill:#5cb85c,stroke:#4cae4c,color:white,stroke-width:1px
+    classDef broker fill:#428bca,stroke:#357ebd,color:white,stroke-width:1px
+    classDef queue fill:#5bc0de,stroke:#46b8da,color:white,stroke-width:1px,font-style:italic
+    classDef subscriber fill:#f0ad4e,stroke:#eea236,color:white,stroke-width:1px
+    classDef storage fill:#d9534f,stroke:#d43f3a,color:white,stroke-width:1px
+    classDef CoinStats fill:#8754C9,stroke:#4C277C,color:white,stroke-width:1px
+    classDef Datamart fill:#AA7E55,stroke:#110D09,color:white,stroke-width:1px
+    
+    %% Producers
+    subgraph Producers
+        cmc["CoinMarketCap<br/>Feeder"]:::producer
+        github["GitHub<br/>Feeder"]:::producer
+    end
+    
+    %% Message Broker
+    subgraph ActiveMQ["Broker (ActiveMQ)"]
+        coins["crypto.Coins"]:::queue
+        quotes["crypto.Quotes"]:::queue
+        repos["github.Repos"]:::queue
+        info["github.Info"]:::queue
+    end
+    
+    %% Subscriber
+    subgraph Subscriber
+        esBuilder["Event Store<br/>Builder"]:::subscriber
+    end
+    
+    %% Storage
+    eventStore[("Event Store")]:::storage
+    
+    %% Analytics
+    coinStats["CoinStats<br/>Predictor"]:::CoinStats
+    dataMart[("Datamart")]:::Datamart
+    
+    %% Connections
+    cmc --> coins
+    cmc --> quotes
+    github --> repos
+    github --> info
+    
+    coins --> esBuilder
+    quotes --> esBuilder
+    repos --> esBuilder
+    info --> esBuilder
+    
+    esBuilder --> eventStore
+    eventStore --> coinStats
+    
+    coinStats <--> dataMart
+    
+    %% New connection from ActiveMQ to CoinStats
+    ActiveMQ --> coinStats
+    
+    %% Link styling
+    linkStyle default stroke:#666,stroke-width:2px;
+```
+
+### 🧩 Principios de diseño aplicados
+
+- **🧱 Single Responsibility Principle**: Manteniendo el código modularizado, asignando a cada clase una única responsabilidad.
+- **🚪 Open/Close Principle**: Facilitando la extensión del sistema sin modificar el código existente.
+
+Ejemplo de implementación de estos principios:
 
 ```java
 GithubRepositoryStore store = new ActiveMQStore(args[1]);
@@ -40,107 +143,195 @@ printSystemInformation(queries);
 controller.execute();
 ```
 
+### 🧩 Módulos del sistema
 
-Consta de 4 módulos:
-- GitHubFeeder: alimenta un csv usando los eventos captados de Github, haciendo llamadas cada 5 minutos.
-- CoinMarketCapFeeder: hace lo mismo que el anterior, pero para CoinMarketCap
-- EventStoreBuilder: Recibe los mensajes de ActiveMQ y los guarda como eventos.
-- CoinStatsPredictor: Mediante varios modelos de aprendizaje, procesa el datamart a tiempo real para obtener predicciones de interés para el usuario, que será capaz de visualizar y manejar mediante la CLI proporcionada.
+El proyecto consta de 4 módulos:
 
-Nuestro sistema usa una arquitectura Lambda porque trabaja tanto con datos en tiempo real como con datos históricos. Recibe eventos al momento desde ActiveMQ y también accede a archivos .events ya guardados con información pasada. Esto nos permite usar los datos recientes y también analizar los antiguos sin tener que volver a procesarlo todo. A diferencia de Kappa, que solo usa streaming, esta forma se adapta mejor a nuestro sistema porque tenemos los históricos guardados y organizados para consultar directamente.
+1. **🌐 GitHubFeeder**: Alimenta un CSV usando los eventos captados de Github, haciendo llamadas cada 5 minutos.
+2. **💰 CoinMarketCapFeeder**: Similar al anterior, pero para CoinMarketCap.
+3. **🗃️ EventStoreBuilder**: Recibe los mensajes de ActiveMQ y los guarda como eventos.
+4. **🧠 CoinStatsPredictor**: Aplica modelos de aprendizaje para procesar el datamart y obtener predicciones.
 
-### Diagrama de clases 📐
 
-#### Diagrama de clases de los feeders
-  - Los siguientes feeders implementan la lógica de extracción de datos desde las APIs externas y la envían al sistema a través de ActiveMQ o directamente a base de datos. Ambos siguen una estructura modular con responsabilidad única:
+## 💾 Estructura del Datamart
 
-    - GitHubFeeder: [Image](https://github.com/user-attachments/assets/40fcbab5-d653-4b05-acf3-8160c59120bc)
+El datamart se estructura a partir de tres archivos CSV:
 
-    - CoinMarketCapFeeder: [Image](https://github.com/user-attachments/assets/5963070c-2cb4-4969-9c66-ba76cb94770d)
+1. **📊 CSV de GitHub**: Datos en bruto procedentes de los eventos de GitHub.
+2. **💹 CSV de CoinMarketCap**: Datos en bruto de los eventos de CoinMarketCap.
+3. **🔄 Datamart consolidado**: Unifica la información según el nombre y la fecha de los eventos.
 
-#### Diagrama de clases del EventStoreBuilder
+El datamart definitivo contiene todos los eventos históricos procesados hasta el momento, representando una versión integrada y depurada de las fuentes originales, ideal para el análisis y la aplicación de modelos predictivos.
 
-  - El módulo EventStoreBuilder consume eventos desde ActiveMQ y los guarda como archivos .events estructurados por tipo y fecha. Sigue una arquitectura por capas y está diseñado para desacoplar el origen de los datos de su almacenamiento, cumpliendo con el principio de responsabilidad única:
-    
-    - EventStoreBuilder: [Image](https://github.com/user-attachments/assets/893c8ea9-0b61-4e95-87dc-e277aa4f557c)
+## 📐 Diagramas de Clases
 
-#### Diagrama de clases del CoinStatsPredictor
+### 🔄 Diagrama de clases de los feeders
 
-  - El módulo CoinStatsPredictor aplica distintos modelos de aprendizaje automático sobre el datamart generado, permitiendo al usuario lanzar predicciones personalizadas a través de una interfaz CLI. Se compone de varios componentes organizados de forma modular:
-    
-    - CoinStatsPredictor: [Image](https://github.com/user-attachments/assets/795aad0b-f032-422c-b99d-3e0868618971)
+Los siguientes feeders implementan la lógica de extracción de datos desde las APIs externas y la envían al sistema a través de ActiveMQ o directamente a base de datos. Ambos siguen una estructura modular con responsabilidad única:
 
-### Compilación y ejecución 📦
+- **🌐 GitHubFeeder**: [Ver diagrama](https://github.com/user-attachments/assets/7168fef4-81ae-437e-801e-71f743f0eeb6)
 
-El proyecto funciona siguiendo un orden de ejecución definido, utilizando el broker de mensajería ActiveMQ. Primero se lanzan los dos feeders: el de CoinMarketCap y el de GitHub, que se alimentan de datos en intervalos de 5 minutos. Estos datos, aún en bruto, se almacenan como dos CSV independientes. Cada 5 minutos, ambos archivos se unen por nombre y fecha para formar un tercer CSV: el datamart definitivo, que recoge todos los eventos históricos procesados hasta el momento. A partir de este datamart, se aplican distintos modelos de aprendizaje automático que permiten interpretar los datos y ofrecer resultados de interés al usuario, quien puede consultarlos mediante la interfaz de línea de comandos (CLI).
+- **💰 CoinMarketCapFeeder**: [Ver diagrama](https://github.com/user-attachments/assets/e560bc3e-e88b-4907-96ed-79fe409dc3fd)
 
-- CoinMarketFeeder: depende si lo tratamos con bases de datos, el primer argumento es la API key y el segundo es la ruta donde quieres que se cree la base de datos. Si lo tratamos con ActiveMQ ponemos el puerto.
-  
-![Image](https://github.com/user-attachments/assets/006cc3ee-cec2-411f-bfad-fb778c09b627)
+### 🗃️ Diagrama de clases del EventStoreBuilder
 
-![Image](https://github.com/user-attachments/assets/e96a349c-88be-4320-8a70-2203b99f16e7)
+El módulo EventStoreBuilder consume eventos desde ActiveMQ y los guarda como archivos .events estructurados por tipo y fecha. Sigue una arquitectura por capas y está diseñado para desacoplar el origen de los datos de su almacenamiento:
 
-- GitHubFeeder: al igual que el otro feeder, el primer argumento es la key y el otro la ruta de la base de datos/puerto del ActiveMQ.
-  
-![Image](https://github.com/user-attachments/assets/1b7fc91f-b28a-4295-be5b-7660932fc7b5)
+- **🗃️ EventStoreBuilder**: [Ver diagrama](https://github.com/user-attachments/assets/893c8ea9-0b61-4e95-87dc-e277aa4f557c)
 
-- EventStore: aqui proporcionamos el enlace de ActiveMQ, y los events que queremos.
-  
-![Image](https://github.com/user-attachments/assets/46721ef0-fcdb-41d4-bc6b-aec23933d9dd)
+### 🧠 Diagrama de clases del CoinStatsPredictor
 
-![Image](https://github.com/user-attachments/assets/8384a2d8-9e2d-472a-bfd4-b9f08b18fcc4)
+El módulo CoinStatsPredictor aplica distintos modelos de aprendizaje automático sobre el datamart generado, permitiendo al usuario lanzar predicciones personalizadas a través de una interfaz CLI:
 
-- CoinStatPredictor: CoinStatsPredictor requiere nueve argumentos: la ruta del CSV de GitHub, la ruta del CSV de CoinMarketCap, la ruta del datamart combinado, la ruta donde se guardará el resultado del modelo, el enlace del servidor ActiveMQ, y los nombres de los topics correspondientes a la información de GitHub, los repositorios de GitHub, las monedas y las quotes.
-    - En la interfaz de usuario mediante linea de comandos tendrá tres opcizones:
-      
-      ![Image](https://github.com/user-attachments/assets/8ecac3b5-0016-488e-83f2-483fdb4b3993)
-    
-        - Solicitar ayuda (1): te muestra la lista de monedas, targets y modelo disponibles.
-          
-          ![Image](https://github.com/user-attachments/assets/bb380aa1-7f00-42f9-a299-138276adb160)
-          
-        - Iniciar busqueda (2): Se seleccionan tres elementos (seperados por coma si son mas de uno y no poniendo nada si quieres todos), la/s moneda/s que quieras analizar, el/los target/s que quieras estudiar, y el/los modelos que quieras utilizar.
-          Ejemplo de busqueda con dos monedas, con respecto al precio y usando los modelos de regresión lineal,  knn y svm:
-          
-          ![Image](https://github.com/user-attachments/assets/1c20adc7-219f-49d3-9231-63df1b1110b1)
-          
-        - Salir (0): Te saca del menú.
-          
-          ![Image](https://github.com/user-attachments/assets/b4b90d25-269d-4561-91f8-51b49d28a1cf)
-          
-        - Cuando termines una busqueda, podrás presionar enter para volver al menú de inicio (a veces al darle enter, le tienes que dar otra vez y te muestra el menú dos veces, en principio eso es un problema de la propia IDE).
+- **🧠 CoinStatsPredictor**: [Ver diagrama](https://github.com/user-attachments/assets/709219d5-f39a-40f3-96e5-c56e319e4262)
 
-          ![Image](https://github.com/user-attachments/assets/ce78b7ab-661e-4e7f-9d3e-b460677c0714)
 
-### Validación y tests 🧪
-Para garantizar el correcto funcionamiento del sistema, se han implementado múltiples pruebas utilizando JUnit, abarcando tanto la conexión con las APIs como la persistencia en la base de datos. Se han realizado pruebas para tanto CoinMarketCap como GitHub.
-- Test de CoinMarketCap:
-  - CoinMarketCapConnectionTest: verifica la conexión con la API.
-  - CoinMarketCapDeserializerTest: comprueba la correcta interpretación de los datos JSON.
-  - CoinMarketCapFetcherTest: testea la recolección de datos de forma periódica.
-  - CoinMarketCapProviderTest: valida el flujo completo de obtención y entrega de datos.
-  - CoinRepositoryTest: comprueba la inserción y consulta de monedas en SQLite.
-  - QuoteRepositoryTest: testea la persistencia de precios y estadísticas.
-  - SQLiteConnectionTest: valida la conexión con la base de datos.
-  - TableCreatorTest: comprueba que las tablas necesarias se crean correctamente.
-  CoinMarketCap proporciona una API key de prueba, lo que facilita la ejecución de tests reales sin exponer información sensible.
+## 🔧 Requisitos
 
-- Test de GitHub:
-  - GithubConnectionTest: valida la conexión con la API de GitHub.
-  - GithubDeserializerTest: asegura la correcta transformación de los datos JSON en objetos del dominio.
-  - GithubFetcherTest: verifica que la extracción de datos se realiza correctamente.
-  - GithubProviderTest: testea la lógica de integración del proveedor completo.
-  - GithubRepositoryTest: gestiona la persistencia de los repositorios en la base de datos.
-  - InformationRepositoryTest: asegura que la información adicional de los proyectos se guarda adecuadamente.
-  - SQLiteConnectionTest: prueba la conexión a SQLite.
-  - TableCreatorTest: comprueba la creación de estructuras de base de datos.
-GitHub no proporciona una API key de testeo, por lo que se utilizó .gitignore para proteger las credenciales locales usadas durante las pruebas.
+- 📨 Broker de mensajería ActiveMQ instalado e iniciado
+- ☕ JDK versión 21
+- 🐍 Python 3.11.9 o superior (configurado en las variables de entorno)
+- 📦 Librerías de Python necesarias instaladas (se explicará posteriormente)
+- 🔌 Conexión a Internet para acceso a las APIs
 
-### Autores ✒️
-Este proyecto fue creado por [Arthead](https://github.com/ArtHead-Devs), contando con dos integrantes:
-- Fabio Nesta Arteaga Cabrera: [NestX10](https://github.com/NestX10)
-- Pablo Cabeza Lantigua: [pabcablan](https://github.com/pabcablan)
 
-          
+## 🚀 Instalación
 
-          
+1. **📥 Clona el repositorio:**
+   ```bash
+   git clone https://github.com/ArtHead-Devs/CryptoArthead.git
+   cd CryptoArthead
+   ```
+
+2. **🐍 Crea un entorno virtual para Python y actívalo (recomendado):**
+
+   **En Windows:**
+   ```bash
+   python -m venv crypto_venv
+   crypto_venv\Scripts\activate
+   ```
+
+   **En macOS/Linux:**
+   ```bash
+   python -m venv crypto_venv
+   source crypto_venv/bin/activate
+   ```
+
+   > La creación de un entorno virtual permite aislar las dependencias del proyecto, evitando conflictos con otras aplicaciones Python instaladas en el sistema.
+
+3. **📦 Instala las dependencias para los modelos predictivos:**
+   ```bash
+   pip install numpy pandas scikit-learn
+   ```
+
+   > Este paso es necesario para ejecutar los modelos de aprendizaje automático incluidos en el módulo CoinStatsPredictor.
+
+
+## 📦 Instalación y Uso
+
+El proyecto funciona siguiendo un orden de ejecución definido, utilizando el broker de mensajería ActiveMQ. Primero se lanzan los dos feeders, luego el EventStore procesa los mensajes, y finalmente el CoinStatsPredictor permite analizar los datos.
+
+### 🔄 Flujo de ejecución
+
+1. **🚀 Iniciar ActiveMQ**
+2. **📊 Ejecutar los feeders** (CoinMarketCapFeeder y GitHubFeeder)
+3. **🗃️ Ejecutar EventStoreBuilder** para procesar los mensajes
+4. **🧠 Ejecutar CoinStatsPredictor** para analizar datos y obtener predicciones
+
+> **Nota:** Todo el desarrollo se realiza utilizando IntelliJ IDEA, no mediante archivos JAR.
+
+### 🖥️ Interfaz CLI del CoinStatsPredictor
+
+La interfaz de línea de comandos ofrece tres opciones:
+
+![CoinStatsPredictor Menu](https://github.com/user-attachments/assets/8ecac3b5-0016-488e-83f2-483fdb4b3993)
+
+1. **❓ Solicitar ayuda (1)**: Muestra la lista de monedas, targets y modelos disponibles.
+2. **🔍 Iniciar búsqueda (2)**: Permite seleccionar monedas, targets y modelos para el análisis.
+3. **🚪 Salir (0)**: Finaliza el programa.
+
+#### 📋 Opciones disponibles
+
+```
+--- Help: possible values ---
+
+Available Coins:
+ - Internet Computer
+ - Chainlink
+ - XRP
+ - Ethereum
+ - Polkadot
+ - TRON
+ - Stellar
+ - Cardano
+ - Avalanche
+ - Bittensor
+
+Available Targets:
+ - price
+ - volumeChange24h
+ - percentChange1h
+ - percentChange24h
+ - percentChange7d
+ - percentChange30d
+ - percentChange60d
+ - percentChange90d
+
+Available Models:
+ - LinearRegression
+ - KNN
+ - SVM
+ - DecisionTree
+ - RandomForest
+```
+
+### 🔍 Ejemplo de búsqueda
+
+Para realizar una búsqueda, se seleccionan las monedas, los targets y los modelos que se desean utilizar (separados por comas):
+
+![Search Example](https://github.com/user-attachments/assets/1c20adc7-219f-49d3-9231-63df1b1110b1)
+
+## 🧪 Validación y Tests
+
+Para garantizar el correcto funcionamiento del sistema, se han implementado múltiples pruebas utilizando JUnit:
+
+<details><summary>📊 Tests de CoinMarketCap</summary>
+
+- **CoinMarketCapConnectionTest**: Verifica la conexión con la API.
+- **CoinMarketCapDeserializerTest**: Comprueba la correcta interpretación de los datos JSON.
+- **CoinMarketCapFetcherTest**: Testea la recolección de datos de forma periódica.
+- **CoinMarketCapProviderTest**: Valida el flujo completo de obtención y entrega de datos.
+- **CoinRepositoryTest**: Comprueba la inserción y consulta de monedas en SQLite.
+- **QuoteRepositoryTest**: Testea la persistencia de precios y estadísticas.
+- **SQLiteConnectionTest**: Valida la conexión con la base de datos.
+- **TableCreatorTest**: Comprueba que las tablas necesarias se crean correctamente.
+
+CoinMarketCap proporciona una API key de prueba, lo que facilita la ejecución de tests reales sin exponer información sensible.
+
+</details>
+
+<details><summary>🌐 Tests de GitHub</summary>
+
+- **GithubConnectionTest**: Valida la conexión con la API de GitHub.
+- **GithubDeserializerTest**: Asegura la correcta transformación de los datos JSON.
+- **GithubFetcherTest**: Verifica la correcta extracción de datos.
+- **GithubProviderTest**: Testea la lógica de integración del proveedor.
+- **GithubRepositoryTest**: Gestiona la persistencia de los repositorios.
+- **InformationRepositoryTest**: Asegura el correcto almacenamiento de información adicional.
+- **SQLiteConnectionTest**: Prueba la conexión a SQLite.
+- **TableCreatorTest**: Comprueba la creación de estructuras de base de datos.
+
+GitHub no proporciona una API key de testeo, por lo que se utilizó .gitignore para proteger las credenciales locales durante las pruebas.
+
+</details>
+
+## 👥 Autores
+
+Este proyecto fue creado por [ArtHead](https://github.com/ArtHead-Devs), contando con dos integrantes:
+
+- **👨‍💻 Fabio Nesta Arteaga Cabrera**: [NestX10](https://github.com/NestX10)
+- **👨‍💻 Pablo Cabeza Lantigua**: [pabcablan](https://github.com/pabcablan)
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la licencia MIT. Consulta el archivo `LICENSE` para obtener más detalles.

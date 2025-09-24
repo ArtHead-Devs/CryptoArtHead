@@ -1,14 +1,13 @@
 package infrastructure.adapters.coinprovider;
 
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapConnection;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapDeserializer;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapFetcher;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapProvider;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.HashMap;
 import java.util.Map;
 

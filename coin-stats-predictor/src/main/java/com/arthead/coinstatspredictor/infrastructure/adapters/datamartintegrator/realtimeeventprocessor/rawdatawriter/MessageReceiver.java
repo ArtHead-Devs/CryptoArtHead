@@ -8,9 +8,9 @@ import java.util.List;
 public class MessageReceiver {
     private final List<String> topics;
     private final String url;
-    private final CsvCoordinator coordinator;
+    private final EventCsvDistributor coordinator;
 
-    public MessageReceiver(List<String> topics, String url, CsvCoordinator coordinator) {
+    public MessageReceiver(List<String> topics, String url, EventCsvDistributor coordinator) {
         this.topics = topics;
         this.url = url;
         this.coordinator = coordinator;

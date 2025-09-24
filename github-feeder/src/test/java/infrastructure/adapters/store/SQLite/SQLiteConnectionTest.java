@@ -1,6 +1,6 @@
 package infrastructure.adapters.store.SQLite;
 
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
+import com.arthead.githubfeeder.infrastructure.adapters.storer.SQLite.SQLiteConnection;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
@@ -12,7 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SQLiteConnectionTest {
-    private final String databaseName = "cointest.db";
+    private final String databaseName = "repositorytest.db";
 
     @Test
     public void testGetConnection() throws SQLException {

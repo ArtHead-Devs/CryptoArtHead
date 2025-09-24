@@ -7,7 +7,6 @@ import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.Githu
 import com.arthead.githubfeeder.infrastructure.adapters.repositoryprovider.GithubProvider;
 import com.arthead.githubfeeder.infrastructure.adapters.storer.ActiveMQ.ActiveMQStore;
 import com.arthead.githubfeeder.infrastructure.ports.GithubRepositoryStore;
-
 import java.util.List;
 import java.util.Map;
 

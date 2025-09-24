@@ -1,13 +1,13 @@
 package com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider;
 
-import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
+import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import org.jsoup.Connection;
 
 public class CoinMarketCapProvider implements CoinProvider {
-    private final com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapConnection connection;
+    private final CoinMarketCapConnection connection;
     private final CoinMarketCapFetcher fetcher;
-    private final com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapDeserializer deserializer;
+    private final CoinMarketCapDeserializer deserializer;
 
     public CoinMarketCapProvider(CoinMarketCapConnection connection, CoinMarketCapFetcher fetcher,
                                  CoinMarketCapDeserializer deserializer) {

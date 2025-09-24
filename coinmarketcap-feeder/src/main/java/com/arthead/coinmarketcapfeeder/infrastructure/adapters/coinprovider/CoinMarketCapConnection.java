@@ -2,7 +2,6 @@ package com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-
 import java.util.Map;
 
 public class CoinMarketCapConnection {

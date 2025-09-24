@@ -8,7 +8,7 @@ import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator
 import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter.CoinMarketCapCsvParser;
 import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter.DatamartWriter;
 import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.datamartwriter.GithubCsvParser;
-import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.CsvCoordinator;
+import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.EventCsvDistributor;
 import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.CsvFileHandler;
 import com.arthead.coinstatspredictor.infrastructure.adapters.datamartintegrator.realtimeeventprocessor.rawdatawriter.MessageReceiver;
 import com.arthead.coinstatspredictor.infrastructure.ports.*;
@@ -55,10 +55,10 @@ public class Main {
     }
 
     private static RealTimeEventProcessor createRealtimeProcessor(String[] args) throws JMSException {
-        CsvCoordinator csvCoordinator = new CsvCoordinator(args[0], args[1]);
+        EventCsvDistributor eventCsvDistributor = new EventCsvDistributor(args[0], args[1]);
         return new RealtimeProcessingCoordinator(
                 new MessageReceiver(List.of(args[5], args[6], args[7], args[8]),
-                        args[4],csvCoordinator),
+                        args[4], eventCsvDistributor),
                 new CsvFileHandler(args[0]),
                 new CsvFileHandler(args[1]),
                 new CoinMarketCapCsvParser(),

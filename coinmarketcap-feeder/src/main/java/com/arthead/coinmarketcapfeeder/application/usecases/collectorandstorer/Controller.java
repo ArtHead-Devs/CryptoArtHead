@@ -1,11 +1,10 @@
 package com.arthead.coinmarketcapfeeder.application.usecases.collectorandstorer;
 
+import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
+import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
 import com.arthead.coinmarketcapfeeder.domain.Coin;
 import com.arthead.coinmarketcapfeeder.domain.CoinMarketCapResponse;
 import com.arthead.coinmarketcapfeeder.domain.Quote;
-import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
-import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
-
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

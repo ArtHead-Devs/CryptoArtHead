@@ -1,14 +1,13 @@
 package com.arthead.coinmarketcapfeeder;
 
-import com.arthead.coinmarketcapfeeder.application.usecases.collectorandstorer.Controller;
+import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapProvider;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapConnection;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapDeserializer;
 import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapFetcher;
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.coinprovider.CoinMarketCapProvider;
-import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.ActiveMQ.ActiveMQStore;
-import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
+import com.arthead.coinmarketcapfeeder.application.usecases.collectorandstorer.Controller;
 import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinStore;
-
+import com.arthead.coinmarketcapfeeder.infrastructure.ports.CoinProvider;
+import com.arthead.coinmarketcapfeeder.infrastructure.adapters.storer.ActiveMQ.ActiveMQStore;
 import java.util.HashMap;
 import java.util.Map;
 
